@@ -1,0 +1,1 @@
+<view><button data-event-opts="{{[['tap',[['loginWithWechat',['$event']]]]]}}" bindtap="__e">登录</button></view>
