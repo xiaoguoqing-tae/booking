@@ -10,6 +10,8 @@
   "libVersion": "",
   "appid": "wxa0475b3f03c46ed0",
   "projectname": "uniclound",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
       "list": []

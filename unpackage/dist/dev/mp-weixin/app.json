@@ -1,6 +1,11 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/index/pages/mine",
+    "pages/index/pages/index",
+    "pages/index/pages/chart",
+    "pages/index/pages/booking",
+    "pages/index/pages/sq"
   ],
   "subPackages": [],
   "window": {
@@ -9,5 +14,6 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap29.json"
 }

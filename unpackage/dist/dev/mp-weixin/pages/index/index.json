@@ -1,4 +1,11 @@
 {
   "navigationBarTitleText": "uni-app",
-  "usingComponents": {}
+  "usingComponents": {
+    "tabbar": "/components/tabbar",
+    "index": "/pages/index/pages/index",
+    "mine": "/pages/index/pages/mine",
+    "sq": "/pages/index/pages/sq",
+    "booking": "/pages/index/pages/booking",
+    "chart": "/pages/index/pages/chart"
+  }
 }
