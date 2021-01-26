@@ -6,17 +6,17 @@
 		<view class="action text-gray" :style="{'color':colorlist[1]?color:''}" @tap="tabicon(1)">
 			<view class="cuIcon-similar"></view> 图表
 		</view>
-		<view class="action text-gray add-action" @tap="tabicon(2)">
-			<button class="cu-btn cuIcon-add shadow" :style="{'background':colorlist[2]?color:''}"></button>
+		<view class="action text-gray add-action" @tap="tabicon(4)">
+			<button class="cu-btn cuIcon-add shadow" :style="{'background':color}"></button>
 			记账
 		</view>
-		<view class="action text-gray" :style="{'color':colorlist[3]?color:''}" @tap="tabicon(3)">
+		<view class="action text-gray" :style="{'color':colorlist[2]?color:''}" @tap="tabicon(2)">
 			<view class="cuIcon-cart">
 				<view class="cu-tag badge">99</view>
 			</view>
 			社区
 		</view>
-		<view class="action text-gray" :style="{'color':colorlist[4]?color:''}" @tap="tabicon(4)">
+		<view class="action text-gray" :style="{'color':colorlist[3]?color:''}" @tap="tabicon(3)">
 			<view class="cuIcon-my">
 				<view class="cu-tag badge"></view>
 			</view>
@@ -30,7 +30,7 @@
 		props:['color'],
 		data() {
 			return {
-				colorlist:[true,false,false,false,false],
+				colorlist:[true,false,false,false],
 			};
 		},
 		mounted() {
@@ -38,11 +38,12 @@
 		},
 		methods:{
 			tabicon(i){
-				for(let j=0;j<this.colorlist.length;j++){
-					this.$set(this.colorlist,j,false)
+				if(i!=4){
+					for(let j=0;j<this.colorlist.length;j++){
+						this.$set(this.colorlist,j,false)
+					}
+					this.$set(this.colorlist,i,true)
 				}
-				this.$set(this.colorlist,i,true)
-				console.log(i)
 				this.$emit("tabbarChange",i)
 			}
 		}

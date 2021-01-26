@@ -26,4 +26,5 @@
 	@import "colorui/main.css"; 
 	@import "colorui/icon.css";
 	@import "colorui/animation.css";
+	@import "static/iconfont.css";
 </style>

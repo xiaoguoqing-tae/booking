@@ -30,17 +30,19 @@
 			}
 		},
 		{
-			"path": "pages/index/pages/booking",
-			"style": {
-				"navigationBarTitleText": "记账"
-			}
-		},
-		{
 			"path": "pages/index/pages/sq",
 			"style": {
 				"navigationBarTitleText": "社区"
 			}
 		}
+        ,{
+            "path" : "pages/booking/booking",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

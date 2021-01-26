@@ -2,9 +2,8 @@
 	<view class="content">
 		<index v-if="urlpage=='0'"></index>
 		<chart v-if="urlpage=='1'"></chart>
-		<booking v-if="urlpage=='2'"></booking>
-		<sq v-if="urlpage=='3'"></sq>
-		<mine v-if="urlpage=='4'"></mine>
+		<sq v-if="urlpage=='2'"></sq>
+		<mine v-if="urlpage=='3'"></mine>
 		<tabbar :color="themeColor.color" @tabbarChange="tabbarChange"></tabbar>
 	</view>
 </template>
@@ -14,7 +13,6 @@
 	import index from "./pages/index.vue";
 	import mine from "./pages/mine.vue";
 	import sq from "./pages/sq.vue";
-	import booking from "./pages/booking.vue";
 	import chart from "./pages/chart.vue";
 	export default {
 		data() {
@@ -22,13 +20,21 @@
 				urlpage:""
 			}
 		},
-		components:{tabbar,index,mine,sq,booking,chart},
+		components:{tabbar,index,mine,sq,chart},
 		onLoad() {
 			
 		},
 		methods: {
 			tabbarChange(i){
-				this.urlpage=i
+				if(i==4){
+					uni.navigateTo({
+						url:"../booking/booking",
+						animationType: "slide-in-bottom",
+						animationDuration: 2000
+					})
+				}else{
+					this.urlpage=i
+				}
 			}
 		}
 	}
