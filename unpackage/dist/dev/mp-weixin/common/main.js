@@ -98,18 +98,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   onLaunch: function onLaunch() {
-    console.log('App Launch');
-    uni.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: this.themeColor.color,
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn' } });
-
 
   },
   onShow: function onShow() {
@@ -118,7 +110,6 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _i
   onHide: function onHide() {
     console.log('App Hide');
   } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 8 */

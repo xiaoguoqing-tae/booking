@@ -22,19 +22,3 @@ Vue.prototype.$switchTab = (url) =>uni.switchTab({
 Vue.prototype.$relaunch = (url) => uni.reLaunch({
 	url:'pages'+url
 })
-
-//封装云函数
-Vue.prototype.$uniCloud = async (name,data) => {
-	uni.showLoading()
-		try{
-			let res = await uniCloud.callFunction({
-				name,
-				data
-			})
-			return res
-		} catch(e){
-			return e
-		}finally{
-			uni.hideLoading()
-		}
-}

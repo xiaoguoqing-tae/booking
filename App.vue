@@ -2,15 +2,7 @@
 	import Vue from 'vue'
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
-			uni.setNavigationBarColor({
-			    frontColor: '#ffffff',
-			    backgroundColor: this.themeColor.color,
-			    animation: {
-				duration: 400,
-				timingFunc: 'easeIn'
-			    }
-			})
+			
 		},
 		onShow: function() {
 			console.log('App Show')

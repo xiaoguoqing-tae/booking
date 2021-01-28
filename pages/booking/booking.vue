@@ -11,9 +11,17 @@
 			</view>
 			<view class="cu-item" style="float: right;" @tap="cancel">取消</view>
 		</scroll-view>
-		<scroll-view class="scrollY" scroll-y="true" enable-flex="true" :style="{height:winHeight}">
+		<scroll-view v-if="!isshow" class="scrollY" scroll-y="true" enable-flex="true" :style="{height:winHeight}">
 			<view class="item-box" v-for="(item,index) in iconlist" :key="index" :id="'K'+index">
-				<view class="item" @tap=callkeyboard(index) :style="{background:iconcolor[index]?themeColor.color:''}">
+				<view class="item" @tap=callkeyboard(0,index) :style="{background:iconcolor[index]?themeColor.color:''}">
+					<span :class="'iconfont'+' '+item.icon"></span>
+				</view>
+				<span>{{item.name}}</span>
+			</view>
+		</scroll-view>
+		<scroll-view v-if="isshow" class="scrollY" scroll-y="true" enable-flex="true" >
+			<view class="item-box" v-for="(item,index) in iconlist1" :key="index">
+				<view class="item" @tap=callkeyboard(1,index) :style="{background:iconcolor1[index]?themeColor.color:''}">
 					<span :class="'iconfont'+' '+item.icon"></span>
 				</view>
 				<span>{{item.name}}</span>
@@ -36,7 +44,12 @@
 				iconlist:[
 					{'icon':'icon-canyin','name':'餐饮'},{'icon':'icon-yundong','name':'运动'},{'icon':'icon-fushi','name':'服饰'},{'icon':'icon-lvxing','name':'旅行'},{'icon':'icon-shejiao','name':'社交'},{'icon':'icon-zhufang','name':'住房'},{'icon':'icon-lingshi','name':'零食'},{'icon':'icon-yule','name':'娱乐'},{'icon':'icon-xuexi','name':'学习'},{'icon':'icon-traffic','name':'交通'},{'icon':'icon-riyongpin','name':'日用品'},{'icon':'icon-yanjiu','name':'烟酒'},{'icon':'icon-tongxun','name':'通讯'},{'icon':'icon-changbei','name':'长辈'},{'icon':'icon-icon-test','name':'礼物'},{'icon':'icon-yiliao','name':'医疗'},{'icon':'icon-shuiguo','name':'水果'},{'icon':'icon-child','name':'孩子'},{'icon':'icon-chongwu','name':'宠物'},{'icon':'icon-gouwu','name':'购物'}
 				],
-				iconcolor:[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+				iconlist1:[
+					{'icon':'icon-gongzi','name':'工资'},{'icon':'icon-jianzhi','name':'兼职'},{'icon':'icon-licai','name':'理财'},{'icon':'icon-lijin','name':'礼金'},{'icon':'icon-qianbao','name':'其他'}
+				],
+				isshow:false,
+				iconcolor:[false,false,false,false,false],
+				iconcolor1:[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
 				winHeight:0,
 				keyHeight:0,
 				navHeight:0,
@@ -53,6 +66,13 @@
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+				for(var j=0;j<this.iconcolor.length;j++){
+					this.$set(this.iconcolor,j,false)
+				}
+				for(var j=0;j<this.iconcolor1.length;j++){
+					this.$set(this.iconcolor1,j,false)
+				}
+				this.isshow=!this.isshow
 			},
 			getNavHeight(){
 				var view0 = uni.createSelectorQuery().select("#nav")
@@ -80,18 +100,22 @@
 				    }
 				});
 			},
-			callkeyboard(i){
-				for(var j=0;j<this.iconcolor.length;j++){
-					this.$set(this.iconcolor,j,false)
+			callkeyboard(n,i){
+				if(n==0){
+					for(var j=0;j<this.iconcolor.length;j++){
+						this.$set(this.iconcolor,j,false)
+					}
+					this.$set(this.iconcolor,i,true)
+				}else{
+					for(var j=0;j<this.iconcolor1.length;j++){
+						this.$set(this.iconcolor1,j,false)
+					}
+					this.$set(this.iconcolor1,i,true)
 				}
-				this.$set(this.iconcolor,i,true)
 				if(this.keyHeight!=0){
 					this.winHeight = (this.winHeight - this.keyHeight - this.navHeight - this.tabHeight)+'px'
 					this.keyHeight = 0
 				}	
-			},
-			change(){
-				
 			},
 			cancel(){
 				uni.navigateBack()

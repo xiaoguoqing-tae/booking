@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "uni-app",
+  "navigationStyle": "custom",
   "usingComponents": {
     "tabbar": "/components/tabbar",
     "index": "/pages/index/pages/index",

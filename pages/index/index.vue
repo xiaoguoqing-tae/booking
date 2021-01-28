@@ -1,5 +1,8 @@
 <template>
 	<view class="content">
+		<view class="solid-bottom nav" :style="{background:themeColor.color}">
+				泰会记
+		</view>
 		<index v-if="urlpage=='0'"></index>
 		<chart v-if="urlpage=='1'"></chart>
 		<sq v-if="urlpage=='2'"></sq>
@@ -22,7 +25,22 @@
 		},
 		components:{tabbar,index,mine,sq,chart},
 		onLoad() {
-			
+			uni.setNavigationBarColor({
+			    frontColor: '#ffffff',
+			    backgroundColor: this.themeColor.color,
+			    animation: {
+				duration: 400,
+				timingFunc: 'easeIn'
+			    }
+			})
+			let userInfo = uni.getStorageSync('userInfo');
+			if (userInfo == null || userInfo == '' || userInfo.openid == null) {
+				//没登录情况
+				uni.navigateTo({
+					url: '/pages/login/login'
+				});
+				return;
+			}
 		},
 		methods: {
 			tabbarChange(i){
@@ -40,6 +58,15 @@
 	}
 </script>
 
-<style>
-	
+<style lang="scss">
+	.content{
+		width: 100%;
+		.nav{
+			padding-top:var(--status-bar-height);
+			width: 100%;
+			color: #FFFFFF;
+			font-size: 16px;
+			text-align: center;
+		}
+	}
 </style>
