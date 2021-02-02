@@ -3,7 +3,7 @@
 		<view class="detail">
 			<view class="mark">
 				<label>备注:</label>
-				<input placeholder="点击填写备注"/>
+				<input v-model="mark" placeholder="点击填写备注"/>
 			</view>
 			<input v-model="equation" class="money" maxlength="10" disabled/>
 		</view>
@@ -29,7 +29,7 @@
 				<span class="iconfont icon-backspace"></span>
 			</view>
 			<view v-if="iscal" class="item" @tap="cal()" :style="{background:themeColor.color}" style="color: #FFFFFF;">=</view>
-			<view v-if="!iscal" class="item" @tap="confirm('confirm')">完成</view>
+			<view v-if="!iscal" class="item" @tap="save">完成</view>
 		</view>
 		<view>
 		   <uni-calendar 
@@ -48,6 +48,7 @@
 	} from '../pages/index/theme.js'
 	var rpn = require("../utils/eval.js")
 	export default {
+		props:['TabCur'],
 		data() {
 			return {
 				iscal:false,
@@ -55,6 +56,7 @@
 				isDecimalAdded: false,
 				isOperatorAdded: false,
 				isStarted: false,
+				mark:""
 			};
 		},
 		components:{uniCalendar},
@@ -110,6 +112,24 @@
 			},
 			confirm(){
 				
+			},
+			save(){
+				console.log("完成")
+				let moneyNumber = new Number(this.equation);
+				if (moneyNumber <= 0) {
+					uni.showToast({
+						icon: "none",
+						title: '请输入大于0的金额'
+					});
+				}else{
+					let obj = {
+						'moneyNumber':moneyNumber,
+						'mark':this.mark
+					}
+					this.$emit("moneyNumber",obj)
+					this.equation="0"
+					this.mark = ""
+				}	
 			},
 			del(){
 				var l = String(this.equation).length

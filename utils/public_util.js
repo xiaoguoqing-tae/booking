@@ -16,7 +16,7 @@ module.exports = {
 				console.log('云函数:' + name + '参数:' + JSON.stringify(data) + '调用成功返回:' + JSON.stringify(res.result))
 				uni.hideLoading();
 				console.log(res)
-				if (res.result.status==200) {
+				if (res) {
 					if (successFun != null)
 						successFun(res.result);
 				} else {

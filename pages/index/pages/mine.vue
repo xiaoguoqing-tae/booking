@@ -71,20 +71,12 @@
 		},
 		mounted() {
 			_self = this;
-			console.log(1111)
-			let userinfo = uni.getStorageSync('userInfo');
-			if (userinfo) {
-				_self.login = true;
-				_self.userInfo = userinfo;
-			}
-			console.log(_self.userInfo)
+			this.checkinfo()
 		},
 		methods: {
 			goLogin() {
 				if (!_self.login) {
-					uni.reLaunch({
-						url: '../../login/login'
-					});
+					this.$emit("loginout")
 				} else {
 					_self.logOff();
 				}
@@ -101,26 +93,24 @@
 						if (res.confirm) {
 							uni.setStorageSync('userInfo', null);
 							_self.login = false;
-							_self.uerInfo = null;
-							uni.reLaunch({
-								url: '../../login/login'
-							});
+							_self.userInfo = null;
+							this.$emit("loginout")
 						} else if (res.cancel) {
 			
 						}
 					}
 				});
 			},
-			gourl(url) {
-				if (this.login) {
-					uni.navigateTo({
-						url: url
-					});
-				} else {
-					uni.navigateTo({
-						url: 'login'
-					});
+			/**
+			 * 检测信息
+			 */
+			checkinfo(){
+				let userinfo = uni.getStorageSync('userInfo');
+				if (userinfo) {
+					_self.login = true;
+					_self.userInfo = userinfo;
 				}
+				console.log(_self.userInfo)
 			},
 			changeLang() {
 				this.$store.commit('changeLang')

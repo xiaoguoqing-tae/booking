@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
 	console.log('查询结果res : ' + JSON.stringify(res));
 
 	//存在则更新
-	if (res.affectedDocs > 0) {
+	if (res.data.length > 0) {
 		res = await collection.doc(res.data[0]._id).update(event);
 		console.log('更新数据 : ' + JSON.stringify(event));
 	} else { //新增

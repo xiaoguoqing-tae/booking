@@ -6,7 +6,7 @@
 		<index v-if="urlpage=='0'"></index>
 		<chart v-if="urlpage=='1'"></chart>
 		<sq v-if="urlpage=='2'"></sq>
-		<mine v-if="urlpage=='3'"></mine>
+		<mine @loginout="loginout" v-if="urlpage=='3'"></mine>
 		<tabbar :color="themeColor.color" @tabbarChange="tabbarChange"></tabbar>
 	</view>
 </template>
@@ -53,6 +53,11 @@
 				}else{
 					this.urlpage=i
 				}
+			},
+			loginout(e){
+				uni.reLaunch({
+					url: '../login/login'
+				});
 			}
 		}
 	}

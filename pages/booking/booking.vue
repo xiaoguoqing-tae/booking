@@ -27,7 +27,7 @@
 				<span>{{item.name}}</span>
 			</view>
 		</scroll-view>
-		<keyboard id="keyboard" style="width: 100%" :style="{bottom:-keyHeight+'px'}"></keyboard>
+		<keyboard id="keyboard" @moneyNumber=save style="width: 100%" :style="{bottom:-keyHeight+'px'}"></keyboard>
 	</view>
 </template>
 
@@ -36,6 +36,9 @@
 	import {
 		ColorList
 	} from '../index/theme.js'
+	import {
+		callCloudFunction,getUserInfo
+	} from '../../utils/public_util.js';
 	export default {
 		data() {
 			return {
@@ -53,7 +56,9 @@
 				winHeight:0,
 				keyHeight:0,
 				navHeight:0,
-				tabHeight:0
+				tabHeight:0,
+				id:null,
+				clickInfo:{}
 			};
 		},
 		components:{keyboard},
@@ -101,24 +106,68 @@
 				});
 			},
 			callkeyboard(n,i){
+				this.clickInfo={}
 				if(n==0){
 					for(var j=0;j<this.iconcolor.length;j++){
 						this.$set(this.iconcolor,j,false)
 					}
 					this.$set(this.iconcolor,i,true)
+					this.clickInfo = {
+						'text':this.iconlist[i].name,
+						'url':this.iconlist[i].icon
+					}
 				}else{
 					for(var j=0;j<this.iconcolor1.length;j++){
 						this.$set(this.iconcolor1,j,false)
 					}
 					this.$set(this.iconcolor1,i,true)
+					this.clickInfo = {
+						'text':this.iconlist1[i].name,
+						'url':this.iconlist1[i].icon
+					}
 				}
 				if(this.keyHeight!=0){
 					this.winHeight = (this.winHeight - this.keyHeight - this.navHeight - this.tabHeight)+'px'
 					this.keyHeight = 0
 				}	
 			},
+			save(e){
+				let userInfo = getUserInfo();
+				callCloudFunction('money_add', {
+					id: this.id == null ? '' : this.id,
+					openid: userInfo.openid,
+					nickName: userInfo.nickName,
+					money: e.moneyNumber,
+					type: this.clickInfo.text,
+					url: this.clickInfo.url,
+					text:e.mark,
+					mark: this.TabCur == 1? 'income' : 'expenditure'
+				}, (res) => {
+					if (this.id == null || this.id == '') {
+						uni.showToast({
+							icon: "none",
+							title: '记录成功',
+							duration: 2000
+						});
+					} else {
+						uni.showToast({
+							icon: "none",
+							title: '修改成功',
+							duration: 2000
+						});
+						this.id = null;
+					}
+					uni.navigateBack()
+				}, (fail) => {
+					uni.showToast({
+						icon: "none",
+						title: '记录失败:' + JSON.stringify(fail),
+						duration: 4000
+					});
+				});
+			},
 			cancel(){
-				uni.navigateBack()
+				uni.navigateBack()		
 			}
 		}
 	}
