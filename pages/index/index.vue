@@ -20,7 +20,7 @@
 	export default {
 		data() {
 			return {
-				urlpage:""
+				urlpage:0
 			}
 		},
 		components:{tabbar,index,mine,sq,chart},

@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "明细",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-select": "/uview-ui/components/u-select/u-select"
+  }
 }

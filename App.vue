@@ -13,10 +13,11 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
 	@import "colorui/main.css"; 
 	@import "colorui/icon.css";
 	@import "colorui/animation.css";
 	@import "static/iconfont.css";
+	@import "uview-ui/index.scss";
 </style>
