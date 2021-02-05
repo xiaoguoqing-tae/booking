@@ -176,11 +176,15 @@ var _public_util = __webpack_require__(/*! ../../../utils/public_util.js */ 55);
 //
 //
 //
-var _default = { data: function data() {return { show: false, date: "", list: [[{ value: '2021', label: '2021' }, { value: '2022', label: '2022' }], []] };},
+var _default = { data: function data() {return { show: false, date: "", list: [[{ value: '2021', label: '2021' }, { value: '2022', label: '2022' }, { value: '2023', label: '2023' }],
+      []] };
+
+
+  },
   created: function created() {
     var obj;
     for (var i = 0; i < 12; i++) {
-      if (i < 10) {
+      if (i < 9) {
         obj = {
           value: '0' + (i + 1),
           label: '0' + (i + 1) };

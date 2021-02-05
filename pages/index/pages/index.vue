@@ -32,6 +32,10 @@
 						{
 							value: '2022',
 							label: '2022'
+						},
+						{
+							value: '2023',
+							label: '2023'
 						}
 					],
 					[],
@@ -41,7 +45,7 @@
 		created() {
 			let obj
 			for(let i=0;i<12;i++){
-				if(i<10){
+				if(i<9){
 					obj = {
 						value: '0'+(i+1),
 						label: '0'+(i+1)
