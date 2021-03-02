@@ -80,7 +80,7 @@ var components
 try {
   components = {
     uSelect: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-select/u-select */ "uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-select/u-select.vue */ 105))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-select/u-select */ "uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-select/u-select.vue */ 108))
     }
   }
 } catch (e) {
@@ -157,6 +157,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _public_util = __webpack_require__(/*! ../../../utils/public_util.js */ 55); //
 //
 //
@@ -176,16 +189,20 @@ var _public_util = __webpack_require__(/*! ../../../utils/public_util.js */ 55);
 //
 //
 //
-var _default = { data: function data() {return { show: false, date: "", list: [[{ value: '2021', label: '2021' }, { value: '2022', label: '2022' }, { value: '2023', label: '2023' }],
-      []] };
-
-
-  },
-  created: function created() {
-    var obj;
-    for (var i = 0; i < 12; i++) {
-      if (i < 9) {
-        obj = {
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { show: false, date: "", list: [[{ value: '2021', label: '2021' }, { value: '2022', label: '2022' }, { value: '2023', label: '2023' }], []], datalist: [], dateselect: "", outmoney: 0, inmoney: 0 };}, created: function created() {var obj;for (var i = 0; i < 12; i++) {if (i < 9) {obj = {
           value: '0' + (i + 1),
           label: '0' + (i + 1) };
 
@@ -207,6 +224,8 @@ var _default = { data: function data() {return { show: false, date: "", list: [[
       m = "0" + m;
     }
     this.date = year + '-' + m;
+    var ny = this.date.split('-');
+    this.dateselect = ny[0] + '-' + ny[1];
 
     this.getData();
   },
@@ -214,7 +233,7 @@ var _default = { data: function data() {return { show: false, date: "", list: [[
     chooseDate: function chooseDate() {
       this.show = true;
     },
-    getData: function getData() {
+    getData: function getData() {var _this = this;
       var yms = this.date.split('-');
       console.log(yms);
       var startDay = 1; //本月第一日
@@ -224,7 +243,50 @@ var _default = { data: function data() {return { show: false, date: "", list: [[
         startDate: new Date(yms[0], new Number(yms[1]) - 1, startDay, 0, 0, 0),
         endDate: new Date(yms[0], new Number(yms[1]) - 1, endDay, 23, 59, 59) },
       function (res) {
-        console.log(res);
+        var data = res.data;
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].mark == "expenditure") {
+            _this.outmoney += -data[i].money;
+          } else {
+            _this.inmoney += data[i].money;
+          }
+          data[i].date1 = _this.$u.timeFormat(data[i].date, 'yyyy-mm-dd');
+        }
+        _this.datalist = (0, _public_util.change)(data);
+        for (var _i = 0; _i < _this.datalist.length; _i++) {
+          var total = 0;
+          for (var j = 0; j < _this.datalist[_i].data.length; j++) {
+            total += -_this.datalist[_i].data[j].money;
+          }
+          _this.datalist[_i].total = total;
+        }
+        console.log(_this.datalist);
+      });
+    },
+    confirm: function confirm(e) {var _this2 = this;
+      this.dateselect = e[0].value + '-' + e[1].value;
+      var yms = this.date.split('-');
+      console.log(yms);
+      var startDay = 1; //本月第一日
+      var endDay = new Date(e[0].value, e[1].value, 0).getDate(); // 本月最后一天
+      (0, _public_util.callCloudFunction)('money_query', {
+        openid: (0, _public_util.getUserOpenid)(),
+        startDate: new Date(yms[0], e[1].value - 1, startDay, 0, 0, 0),
+        endDate: new Date(yms[0], e[1].value - 1, endDay, 23, 59, 59) },
+      function (res) {
+        var data = res.data;
+        for (var i = 0; i < data.length; i++) {
+          data[i].date1 = _this2.$u.timeFormat(data[i].date, 'yyyy-mm-dd');
+        }
+        _this2.datalist = (0, _public_util.change)(data);
+        for (var _i2 = 0; _i2 < _this2.datalist.length; _i2++) {
+          var total = 0;
+          for (var j = 0; j < _this2.datalist[_i2].data.length; j++) {
+            total += -_this2.datalist[_i2].data[j].money;
+          }
+          _this2.datalist[_i2].total = total;
+        }
+        console.log(_this2.datalist);
       });
     } } };exports.default = _default;
 
@@ -259,7 +321,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 89:
+/***/ 92:
 /*!***************************************************************************************************!*\
   !*** D:/My Documents/HBuilderProjects/uniclound/main.js?{"page":"pages%2Findex%2Fpages%2Findex"} ***!
   \***************************************************************************************************/
@@ -275,5 +337,5 @@ createPage(_index.default);
 
 /***/ })
 
-},[[89,"common/runtime","common/vendor"]]]);
+},[[92,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../../.sourcemap/mp-weixin/pages/index/pages/index.js.map

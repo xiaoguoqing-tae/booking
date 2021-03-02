@@ -10,16 +10,18 @@ exports.main = async (event, context) => {
 	let res = null;
 	//日期范围查询
 	if (event.startDate != null && event.endDate != null) {
-		res = await collection.aggregate().addFields({
-			formatDate: $.dateToString({
-				date: '$date',
-				format: '%Y-%m-%d %H:%M:%S'
-			})
-		}).match({
+		res = await collection.aggregate()
+		// .addFields({
+		// 	formatDate: $.dateToString({
+		// 		date: '$date',
+		// 		format: '%Y-%m-%d %H:%M:%S'
+		// 	})
+		// })
+		.match({
 			openid: event.openid,
 			date: dbCmd.gte(event.startDate).and(dbCmd.lte(event.endDate))
 		}).sort({
-			date: -1
+			date: 1
 		}).limit(1000).end();
 	}
 	//分页

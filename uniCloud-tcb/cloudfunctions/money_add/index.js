@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
 			date:event.date
 		});
 	} else {
-		event['date'] = new Date().toISOString();
+		// event['date'] = new Date().toISOString();
 		res = await collection.add(event);
 	}
 	//返回数据给客户端

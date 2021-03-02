@@ -1,6 +1,7 @@
 <template>
 	<view class="content">
 		<scroll-view id="tab" scroll-x class="nav text-center" :style="{background:themeColor.color}">
+			<view class="date" @tap="chooseDate">{{dateselect}}</view>
 			<view class="cu-item" :class="index==TabCur?'cur':''" :style="{color:index==TabCur?'#FFFFFF':''}" style="color:#000000"
 			 v-for="(item,index) in tab" :key="index" @tap="tabSelect" :data-id="index">
 				{{item}}
@@ -16,30 +17,51 @@
 				<canvas canvas-id="canvasPie" id="canvasPie" class="charts" @touchstart="touchPie"></canvas>
 			</view>
 		</view>
+		<u-select v-model="show" mode="mutil-column" :list="list" @confirm="confirm"></u-select>
 	</view>
 </template>
 
 <script>
 	import uCharts from '@/components/u-charts/u-charts.js';
+	import {callCloudFunction,getUserOpenid,change,change1} from "../../../utils/public_util.js"
 	var _self;
 	var canvaLineA = null;
 	var canvaPie = null;
+	var chartData = {
+					'categories': [],
+					'info':["111"],
+					'series': [{
+						'name': '11',
+						'data': []
+					}]
+				}
 	export default {
 		data() {
 			return {
+				show:false,
 				tab: ['折线图', '饼状图'],
 				TabCur: 0,
 				cWidth: '',
 				cHeight: '',
 				pixelRatio: 1,
 				isshow:true,
-				chartData: {
-					categories: [],
-					series: [{
-						name: '11',
-						data: [40, 35.5, 45, 50, 6, 99, 40, 39, 12, 18.9, 2.8, 55]
-					}]
-				},
+				dateselect:"",
+				list: [
+					[{
+							value: '2021',
+							label: '2021'
+						},
+						{
+							value: '2022',
+							label: '2022'
+						},
+						{
+							value: '2023',
+							label: '2023'
+						}
+					],
+					[],
+				],
 				chartData1: {
 				  "series": [{
 					"name": "一班",
@@ -61,35 +83,95 @@
 
 			}
 		},
+		created() {
+			let obj
+			for(let i=0;i<12;i++){
+				if(i<9){
+					obj = {
+						value: '0'+(i+1),
+						label: '0'+(i+1)
+					}
+				}else{
+					obj = {
+						value: String(i+1),
+						label: String(i+1)
+					}
+				}	
+				this.list[1].push(obj)
+			}
+		},
 		mounted() {
+			//日期
+			var myDate = new Date();
+			var year = myDate.getFullYear();
+			var month = myDate.getMonth();
+			var m = month + 1;
+			if (m.toString().length == 1) {
+				m = "0" + m;
+			}
+			this.date = year + '-' + m;
+			let ny = this.date.split('-');
+			this.dateselect = ny[0]+'-'+ny[1]
+			
+			//初始化
 			_self = this;
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
-			this.getMonthDay(2021, 1)
-			// this.getServerData();
-			this.showLineA("canvasLineA", this.chartData);
-			this.showPie("canvasPie",this.chartData1)
-
+			this.getMonthDay(ny[0], ny[1]-1)
+			let yms = this.date.split('-');
+			this.getServerData(yms[0],yms[1]);
 		},
 		methods: {
-			// getServerData(){
-			// 	uni.request({
-			// 		url: 'https://www.ucharts.cn/data.json',
-			// 		data:{
-			// 		},
-			// 		success: function(res) {
-			// 			console.log(res.data.data)
-			// 			let LineA={categories:[],series:[]};
-			// 			//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
-			// 			LineA.categories=res.data.data.LineA.categories;
-			// 			LineA.series=res.data.data.LineA.series;
-			// 			_self.showLineA("canvasLineA",LineA);
-			// 		},
-			// 		fail: () => {
-			// 			_self.tips="网络错误，小程序端请检查合法域名";
-			// 		},
-			// 	});
-			// },
+			getServerData(y,m){
+				let startDay = 1; //本月第一日
+				let endDay = new Date(y, m, 0).getDate(); // 本月最后一天
+				callCloudFunction('money_query', {
+					openid: getUserOpenid(),
+					startDate: new Date(y, new Number(m)-1, startDay, 0, 0, 0),
+					endDate: new Date(y, new Number(m)-1, endDay, 23, 59, 59)
+				}, (res) => {
+					let data = res.data
+					for(let i=0;i<data.length;i++){
+						data[i].date1 = this.$u.timeFormat(data[i].date, 'yyyy-mm-dd');
+					}
+					chartData.series[0].data = []
+					for(let i=0;i<chartData.categories.length;i++){
+						chartData.series[0].data.push(0)
+					}
+					this.datalist = change(data)
+					this.datalist1 = change1(data)
+					for(let i=0;i<this.datalist.length;i++){
+						let total = 0
+						for(let j=0;j<this.datalist[i].data.length;j++){
+							total+=(-this.datalist[i].data[j].money)
+						}
+						this.datalist[i].total = total
+						let index = this.datalist[i].date.split("-")[2]-1
+						chartData.series[0].data[index] = total
+					}
+					this.chartData1.series = []
+					let allmoney = 0
+					for(let i=0;i<this.datalist1.length;i++){
+						let total = 0
+						for(let j=0;j<this.datalist1[i].data.length;j++){
+							total+=(-this.datalist1[i].data[j].money)
+							allmoney+= (-this.datalist1[i].data[j].money)
+						}
+						this.datalist1[i].total = total
+					}
+					for(let i=0;i<this.datalist1.length;i++){
+						let data = parseFloat(allmoney/this.datalist1[i].total)
+						let obj = {
+							'name':this.datalist1[i].type,
+							'data':data
+						}
+						this.chartData1.series.push(obj)
+					}
+					this.showLineA("canvasLineA", chartData);
+					this.showPie("canvasPie",this.chartData1)
+					console.log(this.datalist1)
+				})
+			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
@@ -98,9 +180,9 @@
 			getMonthDay(year, month) {
 				let days = new Date(year, month + 1, 0).getDate()
 				for (let i = 0; i < days; i++) {
-					this.chartData.categories.push(i + 1)
+					chartData.categories.push(i + 1)
 				}
-				console.log(this.chartData.categories)
+				console.log(chartData.categories)
 			},
 			showLineA(canvasId, chartData) {
 				canvaLineA = new uCharts({
@@ -131,7 +213,7 @@
 						dashLength: 8,
 						splitNumber: 5,
 						min: 10,
-						max: 120,
+						max: 200,
 						format: (val) => {
 							return val.toFixed(0) + '元'
 						}
@@ -148,7 +230,7 @@
 			},
 			touchLineA(e) {
 				let textList = [{
-					text: '02-01:59元   动车票',
+					text: '02-01: 动车票  59元 ',
 					color: '#2fc25b'
 				}, {
 					text: '自定义2：值2',
@@ -158,7 +240,10 @@
 					color: '#f04864'
 				}];
 				canvaLineA.showToolTip(e, {
-					textList: textList
+					format: function (item, category) {
+						console.log(item,category)
+						return _self.date.split('-')[1] + '-' +category + ':' + item.data +'元'
+					}
 				});
 			},
 			showPie(canvasId, chartData) {
@@ -191,6 +276,13 @@
 					}
 				});
 			},
+			chooseDate(){
+				this.show = true
+			},
+			confirm(e){
+				this.dateselect = e[0].value+'-'+e[1].value
+				this.getServerData(e[0].value,e[1].value)
+			}
 		}
 	}
 </script>

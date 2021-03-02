@@ -2,8 +2,8 @@
 	<view class="content" >
 		<view class="detail">
 			<view class="mark">
-				<label>备注:</label>
-				<input v-model="mark" placeholder="点击填写备注"/>
+				<label class="label">备注:</label>
+				<input class="input" v-model="mark" placeholder="点击填写备注"/>
 			</view>
 			<input v-model="equation" class="money" maxlength="10" disabled/>
 		</view>
@@ -13,7 +13,7 @@
 			<view class="item" @tap="touch_key(9)">9</view>
 			<view class="item" @tap="selectDate()">
 				<span style="font-size: 20px;" class="iconfont icon-icon"></span>
-				<span>今天</span>
+				<span>{{day}}</span>
 			</view>
 			<view class="item" @tap="touch_key(4)">4</view>
 			<view class="item" @tap="touch_key(5)">5</view>
@@ -56,7 +56,8 @@
 				isDecimalAdded: false,
 				isOperatorAdded: false,
 				isStarted: false,
-				mark:""
+				mark:"",
+				day:"今天"
 			};
 		},
 		components:{uniCalendar},
@@ -110,8 +111,9 @@
 				this.isOperatorAdded = false
 				this.iscal=false
 			},
-			confirm(){
-				
+			confirm(e){
+				console.log(e)
+				this.day = e.fulldate
 			},
 			save(){
 				console.log("完成")
@@ -122,9 +124,17 @@
 						title: '请输入大于0的金额'
 					});
 				}else{
+					let date = ""
+					if(this.day == "今天"){
+						date = new Date().toISOString();
+					}else{
+						let date1  = this.day.split("-")
+						date = new Date(date1[0],date1[1]-1,date1[2]).toISOString();
+					}
 					let obj = {
 						'moneyNumber':moneyNumber,
-						'mark':this.mark
+						'mark':this.mark,
+						'date':date
 					}
 					this.$emit("moneyNumber",obj)
 					this.equation="0"
@@ -145,7 +155,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .content{
 	width: 100%;
 	height: 35%;
@@ -159,7 +169,7 @@
 		background: #FFFFFF;
 		.mark{
 			width: 60%;
-			label{
+			.label{
 				width: 30%;
 				float: left;
 				height: 100%;
@@ -167,10 +177,10 @@
 				align-items: center;
 				justify-content: center;
 			}
-			input{
+			.input{
 				display: flex;
 			}
-			input::-webkit-input-placeholder {
+			.input::-webkit-input-placeholder {
 			   display: flex;
 			   align-items: center;
 			}

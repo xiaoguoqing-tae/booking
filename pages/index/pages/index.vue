@@ -1,15 +1,28 @@
 <template>
 	<view class="index-content">
 		<view class="index-nav" :style="{background:themeColor.color}">
-			<view class="date" @tap="chooseDate">2020-12</view>
+			<view class="date" @tap="chooseDate">{{dateselect}}</view>
 			<view class="info">
 				<view class="item">
-					<view class="txt">200</view>
+					<view class="txt">{{inmoney}}</view>
 					<view class="txt">收入</view>
 				</view>
 				<view class="item">
-					<view class="txt">700</view>
+					<view class="txt">{{outmoney}}</view>
 					<view class="txt">支出</view>
+				</view>
+			</view>
+		</view>
+		<view class="index-main">
+			<view class="main-item" v-for="(item,index) in datalist" :key="index">
+				<view class="item-time">{{item.date}}——支出:{{item.total}}</view>
+				<view class="item-event" v-for="(i,idx) in item.data" :key="idx">
+					<view class="event-info">
+						<span :class="'iconfont'+' '+i.url+' '+'icon'"></span>		
+						<span>{{i.text}}</span>
+					</view>
+					<view v-if="i.mark=='expenditure'">{{i.money}}</view>
+					<view v-if="i.mark=='income'">+{{i.money}}</view>
 				</view>
 			</view>
 		</view>
@@ -18,7 +31,7 @@
 </template>
 
 <script>
-	import {callCloudFunction,getUserOpenid} from "../../../utils/public_util.js"
+	import {callCloudFunction,getUserOpenid,change} from "../../../utils/public_util.js"
 	export default {
 		data() {
 			return {
@@ -40,6 +53,10 @@
 					],
 					[],
 				],
+				datalist:[],
+				dateselect:"",
+				outmoney:0,
+				inmoney:0
 			};
 		},
 		created() {
@@ -68,6 +85,8 @@
 				m = "0" + m;
 			}
 			this.date = year + '-' + m;
+			let ny = this.date.split('-');
+			this.dateselect = ny[0]+'-'+ny[1]
 			
 			this.getData()
 		},
@@ -85,7 +104,50 @@
 					startDate: new Date(yms[0], new Number(yms[1])-1, startDay, 0, 0, 0),
 					endDate: new Date(yms[0], new Number(yms[1])-1, endDay, 23, 59, 59)
 				}, (res) => {
-					console.log(res)
+					let data = res.data
+					for(let i=0;i<data.length;i++){
+						if(data[i].mark == "expenditure"){
+							this.outmoney+= (-data[i].money)
+						}else{
+							this.inmoney+= (data[i].money)
+						}
+						data[i].date1 = this.$u.timeFormat(data[i].date, 'yyyy-mm-dd');
+					}
+					this.datalist = change(data)
+					for(let i=0;i<this.datalist.length;i++){
+						let total = 0
+						for(let j=0;j<this.datalist[i].data.length;j++){
+							total+=(-this.datalist[i].data[j].money)
+						}
+						this.datalist[i].total = total
+					}
+					console.log(this.datalist)
+				})
+			},
+			confirm(e){
+				this.dateselect = e[0].value+'-'+e[1].value
+				let yms = this.date.split('-');
+				console.log(yms)
+				let startDay = 1; //本月第一日
+				let endDay = new Date(e[0].value,e[1].value, 0).getDate(); // 本月最后一天
+				callCloudFunction('money_query', {
+					openid: getUserOpenid(),
+					startDate: new Date(yms[0], (e[1].value)-1, startDay, 0, 0, 0),
+					endDate: new Date(yms[0], (e[1].value)-1, endDay, 23, 59, 59)
+				}, (res) => {
+					let data = res.data
+					for(let i=0;i<data.length;i++){
+						data[i].date1 = this.$u.timeFormat(data[i].date, 'yyyy-mm-dd');
+					}
+					this.datalist = change(data)
+					for(let i=0;i<this.datalist.length;i++){
+						let total = 0
+						for(let j=0;j<this.datalist[i].data.length;j++){
+							total+=(-this.datalist[i].data[j].money)
+						}
+						this.datalist[i].total = total
+					}
+					console.log(this.datalist)
 				})
 			}
 		}
@@ -122,6 +184,37 @@
 
 					.txt {
 						text-align: center;
+					}
+				}
+			}
+		}
+		.index-main{
+			width: 100%;
+			color: #000000;
+			display: flex;
+			flex-direction: column;
+			.main-item{
+				width: 100%;
+				padding: 20rpx;
+				background: #FFFFFF;
+				margin-bottom: 10rpx;
+				display: flex;
+				flex-direction: column;
+				.item-time{
+					padding: 15rpx;
+					border-bottom: 1px solid #C8C9CC;
+				}
+				.item-event{
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding: 20rpx;
+					.event-info{
+						display: flex;
+						align-items: center;
+						.icon{
+							font-size: 20px;
+						}
 					}
 				}
 			}

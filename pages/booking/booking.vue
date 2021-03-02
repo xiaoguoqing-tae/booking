@@ -137,11 +137,12 @@
 					id: this.id == null ? '' : this.id,
 					openid: userInfo.openid,
 					nickName: userInfo.nickName,
-					money: e.moneyNumber,
+					money: this.TabCur == 1?e.moneyNumber:-e.moneyNumber,
 					type: this.clickInfo.text,
 					url: this.clickInfo.url,
 					text:e.mark,
-					mark: this.TabCur == 1? 'income' : 'expenditure'
+					mark: this.TabCur == 1? 'income' : 'expenditure',
+					date:e.date
 				}, (res) => {
 					if (this.id == null || this.id == '') {
 						uni.showToast({

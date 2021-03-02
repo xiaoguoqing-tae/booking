@@ -54,5 +54,69 @@ module.exports = {
 		if (userInfo != null)
 			return userInfo.openid;
 		return '';
+	},
+	change(data){
+		var res=[]
+		var newarr=[]
+		var newarr1=[]
+		for(var i=0;i<data.length;i++){
+			var v=data[i].date1
+			var n=res.indexOf(v);
+			if(n==-1){
+				res.push(v)
+				newarr.push({
+					'date':data[i].date1,
+					data:[
+						{
+							'mark':data[i].mark,
+							'money':data[i].money,
+							'text':data[i].text,
+							'type':data[i].type,
+							'url':data[i].url
+						}
+					]				
+				})
+			}else{
+				newarr[n].data.push({
+					'mark':data[i].mark,
+					'money':data[i].money,
+					'text':data[i].text,
+					'type':data[i].type,
+					'url':data[i].url
+				})
+			}
+		}
+		return newarr
+	},
+	change1(data){
+		var res=[]
+		var newarr=[]
+		var newarr1=[]
+		for(var i=0;i<data.length;i++){
+			var v=data[i].type
+			var n=res.indexOf(v);
+			if(n==-1){
+				res.push(v)
+				newarr.push({
+					'type':data[i].type,
+					data:[
+						{
+							'mark':data[i].mark,
+							'money':data[i].money,
+							'text':data[i].text,
+							'url':data[i].url
+						}
+					]				
+				})
+			}else{
+				newarr[n].data.push({
+					'mark':data[i].mark,
+					'money':data[i].money,
+					'text':data[i].text,
+					'url':data[i].url
+				})
+			}
+		}
+		return newarr
 	}
 }

@@ -291,7 +291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 88:
+/***/ 91:
 /*!**************************************************************************************************!*\
   !*** D:/My Documents/HBuilderProjects/uniclound/main.js?{"page":"pages%2Findex%2Fpages%2Fmine"} ***!
   \**************************************************************************************************/
@@ -307,5 +307,5 @@ createPage(_mine.default);
 
 /***/ })
 
-},[[88,"common/runtime","common/vendor"]]]);
+},[[91,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../../.sourcemap/mp-weixin/pages/index/pages/mine.js.map

@@ -117,7 +117,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 91:
+/***/ 94:
 /*!************************************************************************************************!*\
   !*** D:/My Documents/HBuilderProjects/uniclound/main.js?{"page":"pages%2Findex%2Fpages%2Fsq"} ***!
   \************************************************************************************************/
@@ -133,5 +133,5 @@ createPage(_sq.default);
 
 /***/ })
 
-},[[91,"common/runtime","common/vendor"]]]);
+},[[94,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../../.sourcemap/mp-weixin/pages/index/pages/sq.js.map

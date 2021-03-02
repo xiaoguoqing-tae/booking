@@ -24,14 +24,14 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.content {
+.content.data-v-a6f5c6bc {
   width: 100%;
   height: 35%;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
 }
-.content .detail {
+.content .detail.data-v-a6f5c6bc {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -39,10 +39,10 @@
   padding: 5px;
   background: #FFFFFF;
 }
-.content .detail .mark {
+.content .detail .mark.data-v-a6f5c6bc {
   width: 60%;
 }
-.content .detail .mark label {
+.content .detail .mark .label.data-v-a6f5c6bc {
   width: 30%;
   float: left;
   height: 100%;
@@ -56,12 +56,12 @@
   -webkit-justify-content: center;
           justify-content: center;
 }
-.content .detail .mark input {
+.content .detail .mark .input.data-v-a6f5c6bc {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
 }
-.content .detail .mark input::-webkit-input-placeholder {
+.content .detail .mark .input.data-v-a6f5c6bc::-webkit-input-placeholder {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -69,14 +69,14 @@
   -webkit-align-items: center;
           align-items: center;
 }
-.content .detail .money {
+.content .detail .money.data-v-a6f5c6bc {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
   font-size: 16px;
   text-align: center;
 }
-.content .keyboard {
+.content .keyboard.data-v-a6f5c6bc {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -85,7 +85,7 @@
           flex-wrap: wrap;
   background: #FFFFFF;
 }
-.content .keyboard .item {
+.content .keyboard .item.data-v-a6f5c6bc {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
