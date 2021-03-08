@@ -68,21 +68,25 @@ module.exports = {
 					'date':data[i].date1,
 					data:[
 						{
+							'_id':data[i]._id,
 							'mark':data[i].mark,
 							'money':data[i].money,
 							'text':data[i].text,
 							'type':data[i].type,
-							'url':data[i].url
+							'url':data[i].url,
+							'date':data[i].date1,
 						}
 					]				
 				})
 			}else{
 				newarr[n].data.push({
+					'_id':data[i]._id,
 					'mark':data[i].mark,
 					'money':data[i].money,
 					'text':data[i].text,
 					'type':data[i].type,
-					'url':data[i].url
+					'url':data[i].url,
+					'date':data[i].date1,
 				})
 			}
 		}

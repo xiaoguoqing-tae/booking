@@ -20,6 +20,13 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
+.nav.data-v-21ba0814{
+	padding-top:25px;
+	width: 100%;
+	color: #FFFFFF;
+	font-size: 16px;
+	text-align: center;
+}
 page.data-v-21ba0814 {
 	background-color: #f4f5f6;
 }

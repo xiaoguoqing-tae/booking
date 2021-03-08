@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "社区",
-  "usingComponents": {}
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "tabbar": "/components/tabbar"
+  }
 }

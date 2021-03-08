@@ -1,1 +1,1 @@
-<view class="_div"></view>
+<view class="content data-v-6ec38adf"><view class="solid-bottom nav data-v-6ec38adf" style="{{'background:'+(themeColor.color)+';'}}">泰会记</view><tabbar vue-id="69ae5207-1" color="{{themeColor.color}}" colorlist="{{3}}" data-event-opts="{{[['^tabbarChange',[['tabbarChange']]]]}}" bind:tabbarChange="__e" class="data-v-6ec38adf" bind:__l="__l"></tabbar></view>

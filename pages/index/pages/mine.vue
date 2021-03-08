@@ -1,8 +1,11 @@
 <template>
 	<view class="content">
+		<view class="solid-bottom nav" :style="{background:themeColor.color}">
+				泰会记
+		</view>
 		<!-- <button class="bg-blue btn cu-btn" @tap="changeLang">切换语言</button>
 		<button class="btn cu-btn"  :class="['bg-' + themeColor.name]" @tap="changebg" data-target="RadioModal">切换主题</button> -->
-		<view class="logo bg-gradual-green nav text-center" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
+		<view class="logo bg-gradual-green nav text-center" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''" :style="{background:themeColor.color}">
 			<image class="logo-img" :src="login ? userInfo.avatarUrl :avatarUrl"></image>
 			<view class="logo-title">
 				<text class="uer-name">你好，{{login ? userInfo.nickName : '您未登录'}}</text>
@@ -51,6 +54,7 @@
 				</radio-group>
 			</view>
 		</view>
+		<tabbar :color="themeColor.color" :colorlist="4" @tabbarChange="tabbarChange"></tabbar>
 	</view>
 </template>
 
@@ -58,6 +62,7 @@
 	import {
 		ColorList
 	} from '../theme.js'
+	import tabbar from "../../../components/tabbar.vue";
 	let _self
 	export default {
 		data() {
@@ -66,14 +71,48 @@
 				modalName: null,
 				login: false,
 				avatarUrl: "../../../static/avatar.png",
-				userInfo: {}
+				userInfo: {},
+				tablist:[{
+					"pagePath": "./index",
+					"text": "明细"
+				}, {
+					"pagePath": "./chart",
+					"text": "图表"
+				},
+				{
+					"pagePath": "./sq",
+					"text": "社区"
+				}, {
+					"pagePath": "./mine",
+					"text": "我的"
+				}, {
+					"pagePath": "../../booking/booking",
+					"text": "记账"
+				}]
 			}
 		},
+		components:{tabbar},
 		mounted() {
 			_self = this;
 			this.checkinfo()
 		},
 		methods: {
+			tabbarChange(i){
+				console.log(i)
+				if(i==4){
+					uni.navigateTo({
+						url:this.tablist[i].pagePath,
+						animationType: "slide-in-bottom",
+						animationDuration: 2000
+					})
+				}else{
+					uni.switchTab({
+						url:this.tablist[i].pagePath,
+						animationType: "slide-in-bottom",
+						animationDuration: 2000
+					})
+				}
+			},
 			goLogin() {
 				if (!_self.login) {
 					this.$emit("loginout")
@@ -94,7 +133,9 @@
 							uni.setStorageSync('userInfo', null);
 							_self.login = false;
 							_self.userInfo = null;
-							this.$emit("loginout")
+							uni.reLaunch({
+								url: '../login/login'
+							});
 						} else if (res.cancel) {
 			
 						}
@@ -132,6 +173,7 @@
 				})
 				console.log(obj)
 				this.$store.commit('setThemeColor', obj[0])
+				 uni.setStorageSync('background',JSON.stringify(obj[0]));
 				this.modalName = null
 				uni.setNavigationBarColor({
 				    frontColor: '#ffffff',
@@ -158,6 +200,13 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+	}
+	.nav{
+		padding-top:var(--status-bar-height);
+		width: 100%;
+		color: #FFFFFF;
+		font-size: 16px;
+		text-align: center;
 	}
 	
 	page {

@@ -48,7 +48,7 @@
 	} from '../pages/index/theme.js'
 	var rpn = require("../utils/eval.js")
 	export default {
-		props:['TabCur'],
+		props:['TabCur','editdata'],
 		data() {
 			return {
 				iscal:false,
@@ -62,7 +62,13 @@
 		},
 		components:{uniCalendar},
 		mounted() {
-			
+			console.log(this.editdata)
+			if(this.editdata){
+				let money = this.editdata.money
+				this.equation = Number(money)>0?money:-(money)
+				this.day = this.editdata.date
+				this.mark = this.editdata.text
+			}
 		},
 		methods:{
 			isOperator(character) {

@@ -59,8 +59,8 @@
 			
 									});
 									console.log('用户信息:' + JSON.stringify(userInfo));
-									uni.navigateTo({
-										url: '/pages/index/index'
+									uni.switchTab({
+										url: '../index/pages/index'
 									});
 								});
 			

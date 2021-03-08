@@ -1,6 +1,7 @@
 {
-  "navigationBarTitleText": "明细",
+  "navigationStyle": "custom",
   "usingComponents": {
-    "u-select": "/uview-ui/components/u-select/u-select"
+    "u-select": "/uview-ui/components/u-select/u-select",
+    "tabbar": "/components/tabbar"
   }
 }

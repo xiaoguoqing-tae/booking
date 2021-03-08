@@ -3,10 +3,10 @@
 		<view class="solid-bottom nav" :style="{background:themeColor.color}">
 				泰会记
 		</view>
-		<index v-if="urlpage=='0'"></index>
+		<!-- <index v-if="urlpage=='0'"></index>
 		<chart v-if="urlpage=='1'"></chart>
 		<sq v-if="urlpage=='2'"></sq>
-		<mine @loginout="loginout" v-if="urlpage=='3'"></mine>
+		<mine @loginout="loginout" v-if="urlpage=='3'"></mine> -->
 		<tabbar :color="themeColor.color" @tabbarChange="tabbarChange"></tabbar>
 	</view>
 </template>
@@ -20,7 +20,21 @@
 	export default {
 		data() {
 			return {
-				urlpage:0
+				urlpage:0,
+				tablist:[{
+					"pagePath": "./pages/index",
+					"text": "明细"
+				}, {
+					"pagePath": "./pages/chart",
+					"text": "图表"
+				},
+				{
+					"pagePath": "./pages/sq",
+					"text": "社区"
+				}, {
+					"pagePath": "./pages/mine",
+					"text": "我的"
+				}]
 			}
 		},
 		components:{tabbar,index,mine,sq,chart},
@@ -51,7 +65,11 @@
 						animationDuration: 2000
 					})
 				}else{
-					this.urlpage=i
+					uni.switchTab({
+						url:this.tablist[i].pagePath,
+						animationType: "slide-in-bottom",
+						animationDuration: 2000
+					})
 				}
 			},
 			loginout(e){

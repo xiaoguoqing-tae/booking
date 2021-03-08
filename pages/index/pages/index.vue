@@ -1,5 +1,8 @@
 <template>
 	<view class="index-content">
+		<view class="solid-bottom nav" :style="{background:themeColor.color}">
+				泰会记
+		</view>
 		<view class="index-nav" :style="{background:themeColor.color}">
 			<view class="date" @tap="chooseDate">{{dateselect}}</view>
 			<view class="info">
@@ -15,23 +18,25 @@
 		</view>
 		<view class="index-main">
 			<view class="main-item" v-for="(item,index) in datalist" :key="index">
-				<view class="item-time">{{item.date}}——支出:{{item.total}}</view>
-				<view class="item-event" v-for="(i,idx) in item.data" :key="idx">
-					<view class="event-info">
-						<span :class="'iconfont'+' '+i.url+' '+'icon'"></span>		
-						<span>{{i.text}}</span>
+				<view class="item-time">{{item.date}}——{{item.total>0?'支出':'收入'}}:{{item.total>0?item.total:-(item.total)}}</view>
+					<view class="item-event" v-for="(i,idx) in item.data" :key="idx" @tap="click(index,idx)">
+						<view class="event-info">
+							<span :class="'iconfont'+' '+i.url+' '+'icon'"></span>		
+							<span>{{i.text==" "?i.text:i.type}}</span>
+						</view>
+						<view v-if="i.mark=='expenditure'">{{i.money}}</view>
+						<view v-if="i.mark=='income'">+{{i.money}}</view>
 					</view>
-					<view v-if="i.mark=='expenditure'">{{i.money}}</view>
-					<view v-if="i.mark=='income'">+{{i.money}}</view>
-				</view>
 			</view>
 		</view>
 		<u-select v-model="show" mode="mutil-column" :list="list" @confirm="confirm"></u-select>
+		<tabbar :color="themeColor.color" :colorlist="1" @tabbarChange="tabbarChange"></tabbar>
 	</view>
 </template>
 
 <script>
 	import {callCloudFunction,getUserOpenid,change} from "../../../utils/public_util.js"
+	import tabbar from "../../../components/tabbar.vue";
 	export default {
 		data() {
 			return {
@@ -56,9 +61,33 @@
 				datalist:[],
 				dateselect:"",
 				outmoney:0,
-				inmoney:0
+				inmoney:0,
+				tablist:[{
+					"pagePath": "./index",
+					"text": "明细"
+				}, {
+					"pagePath": "./chart",
+					"text": "图表"
+				},
+				{
+					"pagePath": "./sq",
+					"text": "社区"
+				}, {
+					"pagePath": "./mine",
+					"text": "我的"
+				}, {
+					"pagePath": "../../booking/booking",
+					"text": "记账"
+				}],
+				options:{
+					text: '删除',
+					style: {
+						backgroundColor: '#dd524d'
+					}
+				}
 			};
 		},
+		components:{tabbar},
 		created() {
 			let obj
 			for(let i=0;i<12;i++){
@@ -90,7 +119,46 @@
 			
 			this.getData()
 		},
+		onLoad() {
+			uni.setNavigationBarColor({
+			    frontColor: '#ffffff',
+			    backgroundColor: this.themeColor.color,
+			    animation: {
+				duration: 400,
+				timingFunc: 'easeIn'
+			    }
+			})
+			let userInfo = uni.getStorageSync('userInfo');
+			if (userInfo == null || userInfo == '' || userInfo.openid == null) {
+				//没登录情况
+				uni.navigateTo({
+					url: '/pages/login/login'
+				});
+				return;
+			}
+		},
 		methods: {
+			tabbarChange(i){
+				if(i==4){
+					uni.navigateTo({
+						url:this.tablist[i].pagePath,
+						animationType: "slide-in-bottom",
+						animationDuration: 2000
+					})
+				}else{
+					console.log(i)
+					uni.switchTab({
+						url:this.tablist[i].pagePath,
+						animationType: "slide-in-bottom",
+						animationDuration: 2000
+					})
+				}
+			},
+			loginout(e){
+				uni.reLaunch({
+					url: '../login/login'
+				});
+			},
 			chooseDate(){
 				this.show = true
 			},
@@ -117,6 +185,7 @@
 					for(let i=0;i<this.datalist.length;i++){
 						let total = 0
 						for(let j=0;j<this.datalist[i].data.length;j++){
+							this.datalist[i].data[j].show=true
 							total+=(-this.datalist[i].data[j].money)
 						}
 						this.datalist[i].total = total
@@ -149,7 +218,15 @@
 					}
 					console.log(this.datalist)
 				})
-			}
+			},
+			click(index, index1) {
+				let data = this.datalist[index].data[index1]
+				console.log(data)
+				uni.setStorageSync('infodata', JSON.stringify(data));
+				uni.navigateTo({
+					url:"../../detail/detail"
+				})
+			},
 		}
 	}
 </script>
@@ -160,7 +237,13 @@
 		height: 100%;
 		color: #FFFFFF;
 		font-weight: 700;
-
+		.nav{
+			padding-top:var(--status-bar-height);
+			width: 100%;
+			color: #FFFFFF;
+			font-size: 16px;
+			text-align: center;
+		}
 		.index-nav {
 			width: 100%;
 			display: flex;

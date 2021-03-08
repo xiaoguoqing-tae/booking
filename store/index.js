@@ -14,15 +14,21 @@ if(userlang.substring(0,2)=='zh'){
 }else{
 	lang = require('../language/en.js')
 }
+let color = uni.getStorageSync('background');
+if(!color){
+	color = {
+		title: '嫣红',
+		name: 'red',
+		color: '#e54d42'
+	}
+}else{
+	color = JSON.parse(color)
+}
 
 const store = new Vuex.Store({
 	state:{
 		lang:lang,
-		themeColor: {
-		  title: '嫣红',
-		  name: 'red',
-		  color: '#e54d42'
-		}
+		themeColor: color
 	},
 	mutations:{
 		changeLang:function(state){

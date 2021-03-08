@@ -27,7 +27,8 @@
 				<span>{{item.name}}</span>
 			</view>
 		</scroll-view>
-		<keyboard id="keyboard" @moneyNumber=save style="width: 100%" :style="{bottom:-keyHeight+'px'}"></keyboard>
+		<keyboard v-if="isedit" id="keyboard" @moneyNumber=save style="width: 100%" :style="{bottom:-keyHeight+'px'}"></keyboard>
+		<keyboard v-if="!isedit" id="keyboard" @moneyNumber=save style="width: 100%" :style="{bottom:-keyHeight+'px'}" :editdata="editdata"></keyboard>
 	</view>
 </template>
 
@@ -58,7 +59,9 @@
 				navHeight:0,
 				tabHeight:0,
 				id:null,
-				clickInfo:{}
+				clickInfo:{},
+				isedit:true,
+				editdata:""
 			};
 		},
 		components:{keyboard},
@@ -67,7 +70,55 @@
 			this.getHeight()	
 			this.getNavHeight()
 		},
+		mounted() {
+			const value = uni.getStorageSync('detailinfo');
+			if(value){
+				this.isedit=false
+				this.getdetailinfo()
+			}
+		},
 		methods:{
+			getdetailinfo(){
+				let infodata = JSON.parse(uni.getStorageSync('detailinfo'));
+				this.editdata = infodata
+				let mark = infodata.mark
+				let icon = infodata.url
+				if(mark=='income'){
+					this.TabCur = 1
+					this.isshow = true
+					for(var j=0;j<this.iconlist1.length;j++){
+						if(this.iconlist1[j].icon == icon){
+							this.iconcolor1[j]=true
+							this.clickInfo = {
+								'text':this.iconlist1[j].name,
+								'url':this.iconlist1[j].icon
+							}
+							// if(this.keyHeight!=0){
+							// 	this.winHeight = (this.winHeight - this.keyHeight - this.navHeight - this.tabHeight)+'px'
+							// 	this.keyHeight = 0
+							// }
+							// this.getHeight()
+							// this.keyHeight=200+'px'
+						}
+					}
+				}else{
+					this.TabCur = 0
+					this.isshow = false
+					for(var j=0;j<this.iconlist.length;j++){
+						if(this.iconlist[j].icon == icon){
+							this.iconcolor[j]=true
+							this.clickInfo = {
+								'text':this.iconlist[j].name,
+								'url':this.iconlist[j].icon
+							}
+							if(this.keyHeight!=0){
+								this.winHeight = (this.winHeight - this.keyHeight - this.navHeight - this.tabHeight)+'px'
+								this.keyHeight = 0
+							}
+						}
+					}
+				}
+			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
@@ -84,11 +135,11 @@
 				var view1 = uni.createSelectorQuery().select("#tab")
 				view0.boundingClientRect((data)=>{
 					this.navHeight = data.height
-					console.log(data.height)
+					// console.log(data.height)
 				}).exec()
 				view1.boundingClientRect((data)=>{
 					this.tabHeight = data.height
-					console.log(data.height)
+					// console.log(data.height)
 				}).exec()
 			},
 			getHeight(){

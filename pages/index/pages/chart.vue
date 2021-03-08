@@ -1,5 +1,8 @@
 <template>
 	<view class="content">
+		<view class="solid-bottom nav" :style="{background:themeColor.color}">
+				泰会记
+		</view>
 		<scroll-view id="tab" scroll-x class="nav text-center" :style="{background:themeColor.color}">
 			<view class="date" @tap="chooseDate">{{dateselect}}</view>
 			<view class="cu-item" :class="index==TabCur?'cur':''" :style="{color:index==TabCur?'#FFFFFF':''}" style="color:#000000"
@@ -18,12 +21,14 @@
 			</view>
 		</view>
 		<u-select v-model="show" mode="mutil-column" :list="list" @confirm="confirm"></u-select>
+		<tabbar :color="themeColor.color" :colorlist="2" @tabbarChange="tabbarChange"></tabbar>
 	</view>
 </template>
 
 <script>
 	import uCharts from '@/components/u-charts/u-charts.js';
 	import {callCloudFunction,getUserOpenid,change,change1} from "../../../utils/public_util.js"
+	import tabbar from "../../../components/tabbar.vue";
 	var _self;
 	var canvaLineA = null;
 	var canvaPie = null;
@@ -63,26 +68,28 @@
 					[],
 				],
 				chartData1: {
-				  "series": [{
-					"name": "一班",
-					"data": 50
-				  }, {
-					"name": "二班",
-					"data": 30
-				  }, {
-					"name": "三班",
-					"data": 20
-				  }, {
-					"name": "四班",
-					"data": 18
-				  }, {
-					"name": "五班",
-					"data": 8
-				  }]
-				}
-
+				  "series": []
+				},
+				tablist:[{
+					"pagePath": "./index",
+					"text": "明细"
+				}, {
+					"pagePath": "./chart",
+					"text": "图表"
+				},
+				{
+					"pagePath": "./sq",
+					"text": "社区"
+				}, {
+					"pagePath": "./mine",
+					"text": "我的"
+				}, {
+					"pagePath": "../../booking/booking",
+					"text": "记账"
+				}]
 			}
 		},
+		components:{tabbar},
 		created() {
 			let obj
 			for(let i=0;i<12;i++){
@@ -122,6 +129,22 @@
 			this.getServerData(yms[0],yms[1]);
 		},
 		methods: {
+			tabbarChange(i){
+				console.log(i)
+				if(i==4){
+					uni.navigateTo({
+						url:this.tablist[i].pagePath,
+						animationType: "slide-in-bottom",
+						animationDuration: 2000
+					})
+				}else{
+					uni.switchTab({
+						url:this.tablist[i].pagePath,
+						animationType: "slide-in-bottom",
+						animationDuration: 2000
+					})
+				}
+			},
 			getServerData(y,m){
 				let startDay = 1; //本月第一日
 				let endDay = new Date(y, m, 0).getDate(); // 本月最后一天
@@ -160,12 +183,15 @@
 						this.datalist1[i].total = total
 					}
 					for(let i=0;i<this.datalist1.length;i++){
-						let data = parseFloat(allmoney/this.datalist1[i].total)
-						let obj = {
-							'name':this.datalist1[i].type,
-							'data':data
-						}
-						this.chartData1.series.push(obj)
+						if(this.datalist1[i].total>0){
+							let data = parseFloat(this.datalist1[i].total/allmoney)
+							let obj = {
+								'name':this.datalist1[i].type,
+								'data':data,
+								'money':this.datalist1[i].total
+							}
+							this.chartData1.series.push(obj)
+						}		
 					}
 					this.showLineA("canvasLineA", chartData);
 					this.showPie("canvasPie",this.chartData1)
@@ -272,7 +298,7 @@
 			touchPie(e) {
 				canvaPie.showToolTip(e, {
 					format: function(item) {
-						return item.name + ':' + item.data
+						return item.name + ':' + item.money+'元'
 					}
 				});
 			},
@@ -288,6 +314,13 @@
 </script>
 
 <style>
+	.nav{
+		padding-top:var(--status-bar-height);
+		width: 100%;
+		color: #FFFFFF;
+		font-size: 16px;
+		text-align: center;
+	}
 	/*样式的width和height一定要与定义的cWidth和cHeight相对应*/
 	.qiun-charts {
 		width: 750upx;
