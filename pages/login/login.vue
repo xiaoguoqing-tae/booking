@@ -47,9 +47,12 @@
 							withCredentials: true,
 							success: (infoRes) => {
 								console.log(infoRes)
+								// uni.switchTab({
+								// 	url: '/pages/index/pages/index'
+								// });
 								callCloudFunction('get_openid', {js_code: loginRes.code}, (res) => {
 									console.log(res)
-									uni.hideLoading();
+									// uni.hideLoading();
 									//获取到openid
 									let openid = res.data.openid;
 									let userInfo = infoRes.userInfo;
@@ -60,10 +63,9 @@
 									});
 									console.log('用户信息:' + JSON.stringify(userInfo));
 									uni.switchTab({
-										url: '../index/pages/index'
+										url: '/pages/index/pages/index'
 									});
-								});
-			
+								});	
 							},
 							fail: (fail) => {
 								uni.hideLoading();

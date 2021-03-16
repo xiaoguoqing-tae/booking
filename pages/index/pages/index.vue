@@ -1,9 +1,9 @@
 <template>
 	<view class="index-content">
-		<view class="solid-bottom nav" :style="{background:themeColor.color}">
+		<view class="solid-bottom nav" id="nav" :style="{background:themeColor.color}">
 				泰会记
 		</view>
-		<view class="index-nav" :style="{background:themeColor.color}">
+		<view class="index-nav" id="indexNav" :style="{background:themeColor.color}">
 			<view class="date" @tap="chooseDate">{{dateselect}}</view>
 			<view class="info">
 				<view class="item">
@@ -16,21 +16,24 @@
 				</view>
 			</view>
 		</view>
-		<view class="index-main">
-			<view class="main-item" v-for="(item,index) in datalist" :key="index">
-				<view class="item-time">{{item.date}}——{{item.total>0?'支出':'收入'}}:{{item.total>0?item.total:-(item.total)}}</view>
-					<view class="item-event" v-for="(i,idx) in item.data" :key="idx" @tap="click(index,idx)">
-						<view class="event-info">
-							<span :class="'iconfont'+' '+i.url+' '+'icon'"></span>		
-							<span>{{i.text==" "?i.text:i.type}}</span>
+		<scroll-view scroll-y style="width: 100%;" :style="{height:screenheight+'px'}">
+			<view class="index-main">
+				<view class="main-item" v-for="(item,index) in datalist" :key="index">
+					<view class="item-time">{{item.date}}——{{item.total>0?'支出':'收入'}}:{{item.total>0?item.total:-(item.total)}}</view>
+						<view class="item-event" v-for="(i,idx) in item.data" :key="idx" @tap="click(index,idx)">
+							<view class="event-info">
+								<span :class="'iconfont'+' '+i.url+' '+'icon'"></span>		
+								<span v-if="i.text==''">{{i.type}}</span>
+								<span v-if="i.text!=''">{{i.text}}</span>
+							</view>
+							<view v-if="i.mark=='expenditure'">{{i.money}}</view>
+							<view v-if="i.mark=='income'">+{{i.money}}</view>
 						</view>
-						<view v-if="i.mark=='expenditure'">{{i.money}}</view>
-						<view v-if="i.mark=='income'">+{{i.money}}</view>
-					</view>
+				</view>
 			</view>
-		</view>
+		</scroll-view>	
 		<u-select v-model="show" mode="mutil-column" :list="list" @confirm="confirm"></u-select>
-		<tabbar :color="themeColor.color" :colorlist="1" @tabbarChange="tabbarChange"></tabbar>
+		<tabbar id="tabbar" :color="themeColor.color" :colorlist="1" @tabbarChange="tabbarChange"></tabbar>
 	</view>
 </template>
 
@@ -40,6 +43,7 @@
 	export default {
 		data() {
 			return {
+				screenheight:"",
 				show: false,
 				date:"",
 				list: [
@@ -136,8 +140,17 @@
 				});
 				return;
 			}
+			const sys = uni.getSystemInfoSync()
+			this.screenheight = sys.windowHeight;
+			this.indexNav()
 		},
 		methods: {
+			indexNav(){
+				var view = uni.createSelectorQuery().select("#indexNav")
+				view.boundingClientRect((data)=>{
+					this.screenheight = (this.screenheight - data.height-95)
+				}).exec()
+			},
 			tabbarChange(i){
 				if(i==4){
 					uni.navigateTo({
@@ -243,12 +256,15 @@
 			color: #FFFFFF;
 			font-size: 16px;
 			text-align: center;
+			position: sticky;
+			top: 0;
 		}
 		.index-nav {
 			width: 100%;
 			display: flex;
 			padding: 20upx;
-
+			// position: sticky;
+			// top: 0;
 			.date {
 				width: 30%;
 				display: flex;

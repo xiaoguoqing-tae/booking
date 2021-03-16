@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/index/pages/index",
     "pages/login/login",
+    "pages/index/pages/index",
     "pages/booking/booking",
+    "pages/bookingedit/booking",
     "pages/index/pages/mine",
     "pages/index/pages/chart",
     "pages/index/pages/sq",
@@ -41,5 +42,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap54.json"
+  "sitemapLocation": "sitemap5.json"
 }

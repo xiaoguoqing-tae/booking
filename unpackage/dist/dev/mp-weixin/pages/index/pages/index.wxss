@@ -36,6 +36,9 @@
   color: #FFFFFF;
   font-size: 16px;
   text-align: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 .index-content .index-nav.data-v-8262363e {
   width: 100%;

@@ -134,7 +134,7 @@
 							_self.login = false;
 							_self.userInfo = null;
 							uni.reLaunch({
-								url: '../login/login'
+								url: '../../login/login'
 							});
 						} else if (res.cancel) {
 			

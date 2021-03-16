@@ -169,7 +169,7 @@ __webpack_require__.r(__webpack_exports__);
 var _theme = __webpack_require__(/*! ../index/theme.js */ 69);
 
 
-var _public_util = __webpack_require__(/*! ../../utils/public_util.js */ 50);var keyboard = function keyboard() {Promise.all(/*! require.ensure | components/keyboard */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard")]).then((function () {return resolve(__webpack_require__(/*! ../../components/keyboard.vue */ 117));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _public_util = __webpack_require__(/*! ../../utils/public_util.js */ 50);var keyboard = function keyboard() {Promise.all(/*! require.ensure | components/keyboard */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/keyboard")]).then((function () {return resolve(__webpack_require__(/*! ../../components/keyboard.vue */ 125));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -198,59 +198,54 @@ var _public_util = __webpack_require__(/*! ../../utils/public_util.js */ 50);var
   },
   components: { keyboard: keyboard },
   onLoad: function onLoad() {
-    this.getScreenHeight();
-    this.getHeight();
-    this.getNavHeight();
+
   },
   mounted: function mounted() {
-    var value = uni.getStorageSync('detailinfo');
-    if (value) {
-      this.isedit = false;
-      this.getdetailinfo();
-    }
+    this.getScreenHeight();
+    this.getNavHeight();
+    this.getHeight();
   },
   methods: {
-    getdetailinfo: function getdetailinfo() {
-      var infodata = JSON.parse(uni.getStorageSync('detailinfo'));
-      this.editdata = infodata;
-      var mark = infodata.mark;
-      var icon = infodata.url;
-      if (mark == 'income') {
-        this.TabCur = 1;
-        this.isshow = true;
-        for (var j = 0; j < this.iconlist1.length; j++) {
-          if (this.iconlist1[j].icon == icon) {
-            this.iconcolor1[j] = true;
-            this.clickInfo = {
-              'text': this.iconlist1[j].name,
-              'url': this.iconlist1[j].icon };
-
-            // if(this.keyHeight!=0){
-            // 	this.winHeight = (this.winHeight - this.keyHeight - this.navHeight - this.tabHeight)+'px'
-            // 	this.keyHeight = 0
-            // }
-            // this.getHeight()
-            // this.keyHeight=200+'px'
-          }
-        }
-      } else {
-        this.TabCur = 0;
-        this.isshow = false;
-        for (var j = 0; j < this.iconlist.length; j++) {
-          if (this.iconlist[j].icon == icon) {
-            this.iconcolor[j] = true;
-            this.clickInfo = {
-              'text': this.iconlist[j].name,
-              'url': this.iconlist[j].icon };
-
-            if (this.keyHeight != 0) {
-              this.winHeight = this.winHeight - this.keyHeight - this.navHeight - this.tabHeight + 'px';
-              this.keyHeight = 0;
-            }
-          }
-        }
-      }
-    },
+    // getdetailinfo(){
+    // 	let infodata = JSON.parse(uni.getStorageSync('detailinfo'));
+    // 	this.editdata = infodata
+    // 	this.id = infodata._id
+    // 	let mark = infodata.mark
+    // 	let icon = infodata.url
+    // 	if(mark=='income'){
+    // 		this.TabCur = 1
+    // 		this.isshow = true
+    // 		for(var j=0;j<this.iconlist1.length;j++){
+    // 			if(this.iconlist1[j].icon == icon){
+    // 				this.iconcolor1[j]=true
+    // 				this.clickInfo = {
+    // 					'text':this.iconlist1[j].name,
+    // 					'url':this.iconlist1[j].icon
+    // 				}
+    // 				if(this.keyHeight!=0){
+    // 					this.winHeight = (this.winHeight - this.keyHeight - this.navHeight - this.tabHeight)+'px'
+    // 					this.keyHeight = 0
+    // 				}
+    // 			}
+    // 		}
+    // 	}else{
+    // 		this.TabCur = 0
+    // 		this.isshow = false
+    // 		for(var j=0;j<this.iconlist.length;j++){
+    // 			if(this.iconlist[j].icon == icon){
+    // 				this.iconcolor[j]=true
+    // 				this.clickInfo = {
+    // 					'text':this.iconlist[j].name,
+    // 					'url':this.iconlist[j].icon
+    // 				}
+    // 				if(this.keyHeight!=0){
+    // 					this.winHeight = (this.winHeight - this.keyHeight - this.navHeight - this.tabHeight)+'px'
+    // 					this.keyHeight = 0
+    // 				}
+    // 			}
+    // 		}
+    // 	}
+    // },
     tabSelect: function tabSelect(e) {
       this.TabCur = e.currentTarget.dataset.id;
       this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60;
@@ -333,6 +328,17 @@ var _public_util = __webpack_require__(/*! ../../utils/public_util.js */ 50);var
             title: '记录成功',
             duration: 2000 });
 
+          // var pages = getCurrentPages();//当前页
+          // var beforePage = pages[pages.length - 2];//上个页面
+          // beforePage.$vm.getData()
+          uni.switchTab({
+            url: "../index/pages/index",
+            success: function success() {
+              var page = getCurrentPages()[0];
+              if (page == undefined || page == null) return;
+              page.$vm.getData();
+            } });
+
         } else {
           uni.showToast({
             icon: "none",
@@ -340,8 +346,14 @@ var _public_util = __webpack_require__(/*! ../../utils/public_util.js */ 50);var
             duration: 2000 });
 
           _this4.id = null;
+          uni.removeStorageSync('detailinfo');
+          var pages = getCurrentPages(); //当前页
+          var beforePage = pages[pages.length - 3]; //上个页面
+          beforePage.$vm.getData();
+          uni.switchTab({
+            url: "../index/pages/index" });
+
         }
-        uni.navigateBack();
       }, function (fail) {
         uni.showToast({
           icon: "none",

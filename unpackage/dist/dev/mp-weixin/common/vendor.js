@@ -822,7 +822,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"uniclound","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"泰会记","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7318,7 +7318,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"uniclound","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"泰会记","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7339,14 +7339,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"uniclound","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"泰会记","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"uniclound","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"泰会记","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7432,7 +7432,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"uniclound","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"泰会记","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -11815,9 +11815,9 @@ module.exports = {
         "127.0.0.1",
         "192.168.202.142"
     ],
-    "debugPort": 60213,
+    "debugPort": 63729,
     "initialLaunchType": "remote",
-    "servePort": 60214
+    "servePort": 63730
 }
 ; true && r && !r.code && (t.debugInfo = r), t.isReady = !1;var o = t.auth();return t.initUniCloud = o.getLoginState().then(function (e) {return e ? Promise.resolve() : o.signInAnonymously();}).then(function () {if ( true && t.debugInfo) {var _t$debugInfo = t.debugInfo,_e7 = _t$debugInfo.address,_n3 = _t$debugInfo.servePort;return function () {var _ref11 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(e, t) {var n, _r7, _o;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_r7 = 0;case 1:if (!(_r7 < e.length)) {_context.next = 11;break;}_o = e[_r7];_context.next = 5;return fe(_o, t);case 5:if (!_context.sent) {_context.next = 8;break;}n = _o;return _context.abrupt("break", 11);case 8:_r7++;_context.next = 1;break;case 11:return _context.abrupt("return", { address: n, port: t });case 12:case "end":return _context.stop();}}}, _callee);}));return function (_x3, _x4) {return _ref11.apply(this, arguments);};}()(_e7, _n3);}return Promise.resolve();}).then(function () {var _ref12 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},e = _ref12.address,n = _ref12.port;if (e) t.localAddress = e, t.localPort = n;else if (t.debugInfo) {var _e8 =  false ? undefined : "warn",_n4 = console[_e8];"remote" === t.debugInfo.initialLaunchType ? (t.debugInfo.forceRemote = !0, _n4("当前客户端和HBuilderX不在同一局域网下（或其他网络原因无法连接HBuilderX），uniCloud本地调试服务不对当前客户端生效。\n- 如果不使用uniCloud本地调试服务，请直接忽略此信息。\n- 如需使用uniCloud本地调试服务，请将客户端与主机连接到同一局域网下并重新运行到客户端。\n- 如果在HBuilderX开启的状态下切换过网络环境，请重启HBuilderX后再试")) : _n4("无法连接uniCloud本地调试服务，请检查当前客户端是否与主机在同一局域网下。\n- 如需使用uniCloud本地调试服务，请将客户端与主机连接到同一局域网下并重新运行到客户端。\n- 如果在HBuilderX开启的状态下切换过网络环境，请重启HBuilderX后再试");}}).then(function () {return new Promise(function (e) { false ? (undefined) : setTimeout(function () {u = uni.getSystemInfoSync().platform, c = uni.getStorageSync("__DC_CLOUD_UUID") || l(32), e();}, 0);});}).then(function () {t.isReady = !0;}), ie(t), function (e) {var t = e.uploadFile;e.uploadFile = function (e) {var _this10 = this;var n;return n = this.isReady ? Promise.resolve() : this.initUniCloud, n.then(function () {return t.call(_this10, e);});};var n = e.uploadFile;e.uploadFile = function (e) {return s(n).call(this, e);};}(t), function (e) {e.database = function () {if (this._database) return this._database;var t = {},n = {};var r = /*#__PURE__*/function () {function r(e, t, n) {_classCallCheck(this, r);this.content = e, this.prevStage = t, this.actionName = n;}_createClass(r, [{ key: "toJSON", value: function toJSON() {var e = this;var t = [e.content];for (; e.prevStage;) {e = e.prevStage, t.push(e.content);}return { $db: t.reverse().map(function (e) {return { $method: e.$method, $param: e.$param };}) };} }, { key: "get", value: function get() {return this._send("get", Array.from(arguments));} }, { key: "add", value: function add() {return this._send("add", Array.from(arguments));} }, { key: "remove", value: function remove() {return this._send("remove", Array.from(arguments));} }, { key: "update", value: function update() {return this._send("update", Array.from(arguments));} }, { key: "end", value: function end() {return this._send("end", Array.from(arguments));} }, { key: "set", value: function set() {throw new Error("客户端禁止使用set方法");} }, { key: "_send", value: function _send(r, o) {var s = this.toJSON();return s.$db.push({ $method: r, $param: o }), e.callFunction({ name: "DCloud-clientDB", data: { action: this.actionName, command: s } }).then(function (e) {var _e$result = e.result,r = _e$result.code,o = _e$result.message,s = _e$result.token,i = _e$result.tokenExpired;return r ? Promise.reject(new ue(o, r)) : (s && i && t.refreshToken && t.refreshToken.forEach(function (e) {e({ token: s, tokenExpired: i });}), s && i && n.refreshToken && n.refreshToken.forEach(function (e) {e({ token: s, tokenExpired: i });}), Promise.resolve(e));}).catch(function (e) {var t = new ue(e.message, e.code || "SYSTEM_ERROR");return n.error && n.error.forEach(function (e) {e(t);}), /fc_function_not_found|FUNCTION_NOT_FOUND/g.test(e.message) && console.warn("clientDB未初始化，请在web控制台保存一次schema以开启clientDB"), Promise.reject(e);});} }, { key: "useAggregate", get: function get() {var e = this,t = !1;for (; e.prevStage;) {e = e.prevStage;var _n5 = e.content.$method;if ("aggregate" === _n5 || "pipeline" === _n5) {t = !0;break;}}return t;} }, { key: "count", get: function get() {if (!this.useAggregate) return function () {return this._send("count", Array.from(arguments));};var e = this;return function () {return i({ $method: "count", $param: le(Array.from(arguments)) }, e, e.actionName);};} }]);return r;}();var o = ["db.Geo", "db.command", "command.aggregate"];function s(e, t) {return o.indexOf("".concat(e, ".").concat(t)) > -1;}function i(e, t, n) {return ce(new r(e, t, n), { get: function get(e, t) {var r = "db";return e && e.content && (r = e.content.$method), s(r, t) ? i({ $method: t }, e, n) : function () {return i({ $method: t, $param: le(Array.from(arguments)) }, e, n);};} });}function a(_ref13) {var e = _ref13.path,t = _ref13.method;return /*#__PURE__*/function () {function _class2() {_classCallCheck(this, _class2);this.param = Array.from(arguments);}_createClass(_class2, [{ key: "toJSON", value: function toJSON() {return { $newDb: [].concat(_toConsumableArray(e.map(function (e) {return { $method: e };})), [{ $method: t, $param: this.param }]) };} }]);return _class2;}();}var c = { auth: { on: function on(e, n) {t[e] = t[e] || [], t[e].indexOf(n) > -1 || t[e].push(n);}, off: function off(e, n) {t[e] = t[e] || [];var r = t[e].indexOf(n);-1 !== r && t[e].splice(r, 1);} }, on: function on(e, t) {n[e] = n[e] || [], n[e].indexOf(t) > -1 || n[e].push(t);}, off: function off(e, t) {n[e] = n[e] || [];var r = n[e].indexOf(t);-1 !== r && n[e].splice(r, 1);}, env: ce({}, { get: function get(e, t) {return { $env: t };} }), action: function action(e) {return ce({}, { get: function get(t, n) {return s("db", n) ? i({ $method: n }, null, e) : function () {return i({ $method: n, $param: le(Array.from(arguments)) }, null, e);};} });}, Geo: ce({}, { get: function get(e, t) {return a({ path: ["Geo"], method: t });} }), getCloudEnv: function getCloudEnv(e) {if ("string" != typeof e || !e.trim()) throw new Error("getCloudEnv参数错误");return { $env: e.replace("$cloudEnv_", "") };}, get serverDate() {return a({ path: [], method: "serverDate" });}, get RegExp() {return a({ path: [], method: "RegExp" });} },u = ce(c, { get: function get(e, t) {return s("db", t) ? i({ $method: t }) : function () {return i({ $method: t, $param: le(Array.from(arguments)) });};} });return this._database = u, u;};}(t), function (e) {e.getCurrentUserInfo = he, e.chooseAndUploadFile = s(pe.initChooseAndUploadFile(e));}(t), t.init = this.init, t;} }]);return _class;}())();{var _e9 = {};if (1 === [{"provider":"tencent","spaceName":"taeyeon-0309","spaceId":"tcb-bxs59pa7dbhz4ao01b809-3fdfa6"}].length) _e9 = [{"provider":"tencent","spaceName":"taeyeon-0309","spaceId":"tcb-bxs59pa7dbhz4ao01b809-3fdfa6"}][0], de = de.init(_e9);else {var _e10 = ["auth", "callFunction", "uploadFile", "deleteFile", "getTempFileURL", "downloadFile", "database", "getCurrentUSerInfo"],_t2 = [{"provider":"tencent","spaceName":"taeyeon-0309","spaceId":"tcb-bxs59pa7dbhz4ao01b809-3fdfa6"}].length > 0 ? "应用有多个服务空间，请通过uniCloud.init方法指定要使用的服务空间" : "应用未关联服务空间，请在cloudfunctions目录右键关联服务空间";_e10.forEach(function (e) {de[e] = function () {return console.error(_t2), Promise.reject(new i({ code: "SYS_ERR", message: _t2 }));};});}Object.assign(de, { get mixinDatacom() {return e = de, { props: { localdata: { type: Array, default: function _default() {return [];} }, options: { type: [Object, Array], default: function _default() {return {};} }, collection: { type: String, default: "" }, action: { type: String, default: "" }, field: { type: String, default: "" }, orderby: { type: String, default: "" }, where: { type: [String, Object], default: "" }, pageData: { type: String, default: "add" }, pageCurrent: { type: Number, default: 1 }, pageSize: { type: Number, default: 20 }, getcount: { type: [Boolean, String], default: !1 }, gettree: { type: [Boolean, String], default: !1 }, gettreepath: { type: [Boolean, String], default: !1 }, startwith: { type: String, default: "" }, limitlevel: { type: Number, default: 10 }, groupby: { type: String, default: "" }, groupField: { type: String, default: "" }, distinct: { type: [Boolean, String], default: !1 }, manual: { type: Boolean, default: !1 } }, data: function data() {return { mixinDatacomLoading: !1, mixinDatacomHasMore: !1, mixinDatacomResData: [], mixinDatacomErrorMessage: "", mixinDatacomPage: {} };}, created: function created() {var _this11 = this;this.mixinDatacomPage = { current: this.pageCurrent, size: this.pageSize, count: 0 }, this.$watch(function () {var e = [];return ["pageCurrent", "pageSize", "localdata", "collection", "action", "field", "orderby", "where", "getont", "getcount", "gettree", "groupby", "groupField", "distinct"].forEach(function (t) {e.push(_this11[t]);}), e;}, function (e, t) {var n = !1;var r = [];for (var _o2 = 2; _o2 < e.length; _o2++) {e[_o2] !== t[_o2] && (r.push(e[_o2]), n = !0);}e[0] !== t[0] && (_this11.mixinDatacomPage.current = _this11.pageCurrent), _this11.mixinDatacomPage.size = _this11.pageSize, _this11.onMixinDatacomPropsChange(n, r);});}, methods: { onMixinDatacomPropsChange: function onMixinDatacomPropsChange(e, t) {}, mixinDatacomEasyGet: function mixinDatacomEasyGet() {var _this12 = this;var _ref14 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},_ref14$getone = _ref14.getone,e = _ref14$getone === void 0 ? !1 : _ref14$getone,t = _ref14.success,n = _ref14.fail;this.mixinDatacomLoading || (this.mixinDatacomLoading = !0, this.mixinDatacomErrorMessage = "", this.mixinDatacomGet().then(function (n) {_this12.mixinDatacomLoading = !1;var _n$result = n.result,r = _n$result.data,o = _n$result.count;_this12.getcount && (_this12.mixinDatacomPage.count = o), _this12.mixinDatacomHasMore = r.length < _this12.pageSize;var s = e ? r.length ? r[0] : void 0 : r;_this12.mixinDatacomResData = s, t && t(s);}).catch(function (e) {_this12.mixinDatacomLoading = !1, _this12.mixinDatacomErrorMessage = e, n && n(e);}));}, mixinDatacomGet: function mixinDatacomGet() {var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var n = e.database();var r = t.action || this.action;r && (n = n.action(r));var o = t.collection || this.collection;n = n.collection(o);var s = t.where || this.where;s && Object.keys(s).length && (n = n.where(s));var i = t.field || this.field;i && (n = n.field(i));var a = t.groupby || this.groupby;a && (n = n.groupBy(a));var c = t.groupField || this.groupField;c && (n = n.groupField(c)), !0 === (void 0 !== t.distinct ? t.distinct : this.distinct) && (n = n.distinct());var u = t.orderby || this.orderby;u && (n = n.orderBy(u));var l = void 0 !== t.pageCurrent ? t.pageCurrent : this.mixinDatacomPage.current,h = void 0 !== t.pageSize ? t.pageSize : this.mixinDatacomPage.size,p = void 0 !== t.getcount ? t.getcount : this.getcount,f = void 0 !== t.gettree ? t.gettree : this.gettree,d = void 0 !== t.gettreepath ? t.gettreepath : this.gettreepath,g = { getCount: p },y = { limitLevel: void 0 !== t.limitlevel ? t.limitlevel : this.limitlevel, startWith: void 0 !== t.startwith ? t.startwith : this.startwith };return f && (g.getTree = y), d && (g.getTreePath = y), n = n.skip(h * (l - 1)).limit(h).get(g), n;} } };var e;} });}var ge = de;var _default2 = ge;exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3), __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
@@ -11932,7 +11932,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.ColorList 
 /* 83 */,
 /* 84 */,
 /* 85 */,
-/* 86 */
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */
 /*!**********************************************************************************!*\
   !*** D:/My Documents/HBuilderProjects/uniclound/components/u-charts/u-charts.js ***!
   \**********************************************************************************/
@@ -17607,14 +17615,6 @@ if ( true && typeof module.exports === "object") {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
 /* 95 */,
 /* 96 */,
 /* 97 */,
@@ -17642,7 +17642,15 @@ if ( true && typeof module.exports === "object") {
 /* 119 */,
 /* 120 */,
 /* 121 */,
-/* 122 */
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */
 /*!****************************************************************!*\
   !*** D:/My Documents/HBuilderProjects/uniclound/utils/eval.js ***!
   \****************************************************************/
@@ -17750,21 +17758,837 @@ module.exports = {
   calCommonExp: calCommonExp };
 
 /***/ }),
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
 /* 131 */,
 /* 132 */,
 /* 133 */,
 /* 134 */,
 /* 135 */,
 /* 136 */,
-/* 137 */
+/* 137 */,
+/* 138 */
+/*!***************************************************************************************************!*\
+  !*** D:/My Documents/HBuilderProjects/uniclound/uview-ui/components/u-parse/libs/MpHtmlParser.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/**
+ * html 解析器
+ * @tutorial https://github.com/jin-yufeng/Parser
+ * @version 20201029
+ * @author JinYufeng
+ * @listens MIT
+ */
+var cfg = __webpack_require__(/*! ./config.js */ 139),
+blankChar = cfg.blankChar,
+CssHandler = __webpack_require__(/*! ./CssHandler.js */ 140),
+windowWidth = uni.getSystemInfoSync().windowWidth;
+var emoji;
+
+function MpHtmlParser(data) {var _this = this;var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  this.attrs = {};
+  this.CssHandler = new CssHandler(options.tagStyle, windowWidth);
+  this.data = data;
+  this.domain = options.domain;
+  this.DOM = [];
+  this.i = this.start = this.audioNum = this.imgNum = this.videoNum = 0;
+  options.prot = (this.domain || '').includes('://') ? this.domain.split('://')[0] : 'http';
+  this.options = options;
+  this.state = this.Text;
+  this.STACK = [];
+  // 工具函数
+  this.bubble = function () {
+    for (var i = _this.STACK.length, item; item = _this.STACK[--i];) {
+      if (cfg.richOnlyTags[item.name]) return false;
+      item.c = 1;
+    }
+    return true;
+  };
+  this.decode = function (val, amp) {
+    var i = -1,
+    j,en;
+    while (1) {
+      if ((i = val.indexOf('&', i + 1)) == -1) break;
+      if ((j = val.indexOf(';', i + 2)) == -1) break;
+      if (val[i + 1] == '#') {
+        en = parseInt((val[i + 2] == 'x' ? '0' : '') + val.substring(i + 2, j));
+        if (!isNaN(en)) val = val.substr(0, i) + String.fromCharCode(en) + val.substr(j + 1);
+      } else {
+        en = val.substring(i + 1, j);
+        if (cfg.entities[en] || en == amp)
+        val = val.substr(0, i) + (cfg.entities[en] || '&') + val.substr(j + 1);
+      }
+    }
+    return val;
+  };
+  this.getUrl = function (url) {
+    if (url[0] == '/') {
+      if (url[1] == '/') url = _this.options.prot + ':' + url;else
+      if (_this.domain) url = _this.domain + url;
+    } else if (_this.domain && url.indexOf('data:') != 0 && !url.includes('://'))
+    url = _this.domain + '/' + url;
+    return url;
+  };
+  this.isClose = function () {return _this.data[_this.i] == '>' || _this.data[_this.i] == '/' && _this.data[_this.i + 1] == '>';};
+  this.section = function () {return _this.data.substring(_this.start, _this.i);};
+  this.parent = function () {return _this.STACK[_this.STACK.length - 1];};
+  this.siblings = function () {return _this.STACK.length ? _this.parent().children : _this.DOM;};
+}
+MpHtmlParser.prototype.parse = function () {
+  if (emoji) this.data = emoji.parseEmoji(this.data);
+  for (var c; c = this.data[this.i]; this.i++) {
+    this.state(c);}
+  if (this.state == this.Text) this.setText();
+  while (this.STACK.length) {this.popNode(this.STACK.pop());}
+  return this.DOM;
+};
+// 设置属性
+MpHtmlParser.prototype.setAttr = function () {
+  var name = this.attrName.toLowerCase(),
+  val = this.attrVal;
+  if (cfg.boolAttrs[name]) this.attrs[name] = 'T';else
+  if (val) {
+    if (name == 'src' || name == 'data-src' && !this.attrs.src) this.attrs.src = this.getUrl(this.decode(val, 'amp'));else
+    if (name == 'href' || name == 'style') this.attrs[name] = this.decode(val, 'amp');else
+    if (name.substr(0, 5) != 'data-') this.attrs[name] = val;
+  }
+  this.attrVal = '';
+  while (blankChar[this.data[this.i]]) {this.i++;}
+  if (this.isClose()) this.setNode();else
+  {
+    this.start = this.i;
+    this.state = this.AttrName;
+  }
+};
+// 设置文本节点
+MpHtmlParser.prototype.setText = function () {
+  var back,text = this.section();
+  if (!text) return;
+  text = cfg.onText && cfg.onText(text, function () {return back = true;}) || text;
+  if (back) {
+    this.data = this.data.substr(0, this.start) + text + this.data.substr(this.i);
+    var j = this.start + text.length;
+    for (this.i = this.start; this.i < j; this.i++) {this.state(this.data[this.i]);}
+    return;
+  }
+  if (!this.pre) {
+    // 合并空白符
+    var flag,tmp = [];
+    for (var i = text.length, c; c = text[--i];) {
+      if (!blankChar[c]) {
+        tmp.unshift(c);
+        if (!flag) flag = 1;
+      } else {
+        if (tmp[0] != ' ') tmp.unshift(' ');
+        if (c == '\n' && flag == void 0) flag = 0;
+      }}
+    if (flag == 0) return;
+    text = tmp.join('');
+  }
+  this.siblings().push({
+    type: 'text',
+    text: this.decode(text) });
+
+};
+// 设置元素节点
+MpHtmlParser.prototype.setNode = function () {
+  var node = {
+    name: this.tagName.toLowerCase(),
+    attrs: this.attrs },
+
+  close = cfg.selfClosingTags[node.name];
+  if (this.options.nodes.length) node.type = 'node';
+  this.attrs = {};
+  if (!cfg.ignoreTags[node.name]) {
+    // 处理属性
+    var attrs = node.attrs,
+    style = this.CssHandler.match(node.name, attrs, node) + (attrs.style || ''),
+    styleObj = {};
+    if (attrs.id) {
+      if (this.options.compress & 1) attrs.id = void 0;else
+      if (this.options.useAnchor) this.bubble();
+    }
+    if (this.options.compress & 2 && attrs.class) attrs.class = void 0;
+    switch (node.name) {
+      case 'a':
+      case 'ad':
+
+
+        this.bubble();
+        break;
+      case 'font':
+        if (attrs.color) {
+          styleObj['color'] = attrs.color;
+          attrs.color = void 0;
+        }
+        if (attrs.face) {
+          styleObj['font-family'] = attrs.face;
+          attrs.face = void 0;
+        }
+        if (attrs.size) {
+          var size = parseInt(attrs.size);
+          if (size < 1) size = 1;else
+          if (size > 7) size = 7;
+          var map = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'];
+          styleObj['font-size'] = map[size - 1];
+          attrs.size = void 0;
+        }
+        break;
+      case 'embed':
+
+        var src = node.attrs.src || '',
+        type = node.attrs.type || '';
+        if (type.includes('video') || src.includes('.mp4') || src.includes('.3gp') || src.includes('.m3u8'))
+        node.name = 'video';else
+        if (type.includes('audio') || src.includes('.m4a') || src.includes('.wav') || src.includes('.mp3') || src.includes(
+        '.aac'))
+        node.name = 'audio';else
+        break;
+        if (node.attrs.autostart)
+        node.attrs.autoplay = 'T';
+        node.attrs.controls = 'T';
+
+
+
+
+
+      case 'video':
+      case 'audio':
+        if (!attrs.id) attrs.id = node.name + ++this["".concat(node.name, "Num")];else
+        this["".concat(node.name, "Num")]++;
+        if (node.name == 'video') {
+          if (this.videoNum > 3)
+          node.lazyLoad = 1;
+          if (attrs.width) {
+            styleObj.width = parseFloat(attrs.width) + (attrs.width.includes('%') ? '%' : 'px');
+            attrs.width = void 0;
+          }
+          if (attrs.height) {
+            styleObj.height = parseFloat(attrs.height) + (attrs.height.includes('%') ? '%' : 'px');
+            attrs.height = void 0;
+          }
+        }
+        if (!attrs.controls && !attrs.autoplay) attrs.controls = 'T';
+        attrs.source = [];
+        if (attrs.src) {
+          attrs.source.push(attrs.src);
+          attrs.src = void 0;
+        }
+        this.bubble();
+        break;
+      case 'td':
+      case 'th':
+        if (attrs.colspan || attrs.rowspan)
+        for (var k = this.STACK.length, item; item = this.STACK[--k];) {
+          if (item.name == 'table') {
+            item.flag = 1;
+            break;
+          }}}
+
+    if (attrs.align) {
+      if (node.name == 'table') {
+        if (attrs.align == 'center') styleObj['margin-inline-start'] = styleObj['margin-inline-end'] = 'auto';else
+        styleObj['float'] = attrs.align;
+      } else styleObj['text-align'] = attrs.align;
+      attrs.align = void 0;
+    }
+    // 压缩 style
+    var styles = style.split(';');
+    style = '';
+    for (var i = 0, len = styles.length; i < len; i++) {
+      var info = styles[i].split(':');
+      if (info.length < 2) continue;
+      var _key = info[0].trim().toLowerCase(),
+      _value = info.slice(1).join(':').trim();
+      if (_value[0] == '-' || _value.includes('safe'))
+      style += ";".concat(_key, ":").concat(_value);else
+      if (!styleObj[_key] || _value.includes('import') || !styleObj[_key].includes('import'))
+      styleObj[_key] = _value;
+    }
+    if (node.name == 'img') {
+      if (attrs.src && !attrs.ignore) {
+        if (this.bubble())
+        attrs.i = (this.imgNum++).toString();else
+        attrs.ignore = 'T';
+      }
+      if (attrs.ignore) {
+        style += ';-webkit-touch-callout:none';
+        styleObj['max-width'] = '100%';
+      }
+      var width;
+      if (styleObj.width) width = styleObj.width;else
+      if (attrs.width) width = attrs.width.includes('%') ? attrs.width : parseFloat(attrs.width) + 'px';
+      if (width) {
+        styleObj.width = width;
+        attrs.width = '100%';
+        if (parseInt(width) > windowWidth) {
+          styleObj.height = '';
+          if (attrs.height) attrs.height = void 0;
+        }
+      }
+      if (styleObj.height) {
+        attrs.height = styleObj.height;
+        styleObj.height = '';
+      } else if (attrs.height && !attrs.height.includes('%'))
+      attrs.height = parseFloat(attrs.height) + 'px';
+    }
+    for (var key in styleObj) {
+      var value = styleObj[key];
+      if (!value) continue;
+      if (key.includes('flex') || key == 'order' || key == 'self-align') node.c = 1;
+      // 填充链接
+      if (value.includes('url')) {
+        var j = value.indexOf('(');
+        if (j++ != -1) {
+          while (value[j] == '"' || value[j] == "'" || blankChar[value[j]]) {j++;}
+          value = value.substr(0, j) + this.getUrl(value.substr(j));
+        }
+      }
+      // 转换 rpx
+      else if (value.includes('rpx'))
+        value = value.replace(/[0-9.]+\s*rpx/g, function ($) {return parseFloat($) * windowWidth / 750 + 'px';});else
+        if (key == 'white-space' && value.includes('pre') && !close)
+        this.pre = node.pre = true;
+      style += ";".concat(key, ":").concat(value);
+    }
+    style = style.substr(1);
+    if (style) attrs.style = style;
+    if (!close) {
+      node.children = [];
+      if (node.name == 'pre' && cfg.highlight) {
+        this.remove(node);
+        this.pre = node.pre = true;
+      }
+      this.siblings().push(node);
+      this.STACK.push(node);
+    } else if (!cfg.filter || cfg.filter(node, this) != false)
+    this.siblings().push(node);
+  } else {
+    if (!close) this.remove(node);else
+    if (node.name == 'source') {
+      var parent = this.parent();
+      if (parent && (parent.name == 'video' || parent.name == 'audio') && node.attrs.src)
+      parent.attrs.source.push(node.attrs.src);
+    } else if (node.name == 'base' && !this.domain) this.domain = node.attrs.href;
+  }
+  if (this.data[this.i] == '/') this.i++;
+  this.start = this.i + 1;
+  this.state = this.Text;
+};
+// 移除标签
+MpHtmlParser.prototype.remove = function (node) {var _this2 = this;
+  var name = node.name,
+  j = this.i;
+  // 处理 svg
+  var handleSvg = function handleSvg() {
+    var src = _this2.data.substring(j, _this2.i + 1);
+    node.attrs.xmlns = 'http://www.w3.org/2000/svg';
+    for (var key in node.attrs) {
+      if (key == 'viewbox') src = " viewBox=\"".concat(node.attrs.viewbox, "\"") + src;else
+      if (key != 'style') src = " ".concat(key, "=\"").concat(node.attrs[key], "\"") + src;
+    }
+    src = '<svg' + src;
+    var parent = _this2.parent();
+    if (node.attrs.width == '100%' && parent && (parent.attrs.style || '').includes('inline'))
+    parent.attrs.style = 'width:300px;max-width:100%;' + parent.attrs.style;
+    _this2.siblings().push({
+      name: 'img',
+      attrs: {
+        src: 'data:image/svg+xml;utf8,' + src.replace(/#/g, '%23'),
+        style: node.attrs.style,
+        ignore: 'T' } });
+
+
+  };
+  if (node.name == 'svg' && this.data[j] == '/') return handleSvg(this.i++);
+  while (1) {
+    if ((this.i = this.data.indexOf('</', this.i + 1)) == -1) {
+      if (name == 'pre' || name == 'svg') this.i = j;else
+      this.i = this.data.length;
+      return;
+    }
+    this.start = this.i += 2;
+    while (!blankChar[this.data[this.i]] && !this.isClose()) {this.i++;}
+    if (this.section().toLowerCase() == name) {
+      // 代码块高亮
+      if (name == 'pre') {
+        this.data = this.data.substr(0, j + 1) + cfg.highlight(this.data.substring(j + 1, this.i - 5), node.attrs) + this.data.
+        substr(this.i - 5);
+        return this.i = j;
+      } else if (name == 'style')
+      this.CssHandler.getStyle(this.data.substring(j + 1, this.i - 7));else
+      if (name == 'title')
+      this.DOM.title = this.data.substring(j + 1, this.i - 7);
+      if ((this.i = this.data.indexOf('>', this.i)) == -1) this.i = this.data.length;
+      if (name == 'svg') handleSvg();
+      return;
+    }
+  }
+};
+// 节点出栈处理
+MpHtmlParser.prototype.popNode = function (node) {
+  // 空白符处理
+  if (node.pre) {
+    node.pre = this.pre = void 0;
+    for (var i = this.STACK.length; i--;) {
+      if (this.STACK[i].pre)
+      this.pre = true;}
+  }
+  var siblings = this.siblings(),
+  len = siblings.length,
+  childs = node.children;
+  if (node.name == 'head' || cfg.filter && cfg.filter(node, this) == false)
+  return siblings.pop();
+  var attrs = node.attrs;
+  // 替换一些标签名
+  if (cfg.blockTags[node.name]) node.name = 'div';else
+  if (!cfg.trustTags[node.name]) node.name = 'span';
+  // 处理列表
+  if (node.c && (node.name == 'ul' || node.name == 'ol')) {
+    if ((node.attrs.style || '').includes('list-style:none')) {
+      for (var _i = 0, child; child = childs[_i++];) {
+        if (child.name == 'li')
+        child.name = 'div';}
+    } else if (node.name == 'ul') {
+      var floor = 1;
+      for (var _i2 = this.STACK.length; _i2--;) {
+        if (this.STACK[_i2].name == 'ul') floor++;}
+      if (floor != 1)
+      for (var _i3 = childs.length; _i3--;) {
+        childs[_i3].floor = floor;}
+    } else {
+      for (var _i4 = 0, num = 1, _child; _child = childs[_i4++];) {
+        if (_child.name == 'li') {
+          _child.type = 'ol';
+          _child.num = function (num, type) {
+            if (type == 'a') return String.fromCharCode(97 + (num - 1) % 26);
+            if (type == 'A') return String.fromCharCode(65 + (num - 1) % 26);
+            if (type == 'i' || type == 'I') {
+              num = (num - 1) % 99 + 1;
+              var one = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
+              ten = ['X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'],
+              res = (ten[Math.floor(num / 10) - 1] || '') + (one[num % 10 - 1] || '');
+              if (type == 'i') return res.toLowerCase();
+              return res;
+            }
+            return num;
+          }(num++, attrs.type) + '.';
+        }}
+    }
+  }
+  // 处理表格
+  if (node.name == 'table') {
+    var padding = parseFloat(attrs.cellpadding),
+    spacing = parseFloat(attrs.cellspacing),
+    border = parseFloat(attrs.border);
+    if (node.c) {
+      if (isNaN(padding)) padding = 2;
+      if (isNaN(spacing)) spacing = 2;
+    }
+    if (border) attrs.style = "border:".concat(border, "px solid gray;").concat(attrs.style || '');
+    if (node.flag && node.c) {
+      // 有 colspan 或 rowspan 且含有链接的表格转为 grid 布局实现
+      attrs.style = "".concat(attrs.style || '', ";").concat(spacing ? ";grid-gap:".concat(spacing, "px") : ';border-left:0;border-top:0');
+      var row = 1,
+      col = 1,
+      colNum,
+      trs = [],
+      children = [],
+      map = {};
+      (function f(ns) {
+        for (var i = 0; i < ns.length; i++) {
+          if (ns[i].name == 'tr') trs.push(ns[i]);else
+          f(ns[i].children || []);
+        }
+      })(node.children);
+      for (var _i5 = 0; _i5 < trs.length; _i5++) {
+        for (var j = 0, td; td = trs[_i5].children[j]; j++) {
+          if (td.name == 'td' || td.name == 'th') {
+            while (map[row + '.' + col]) {col++;}
+            var cell = {
+              name: 'div',
+              c: 1,
+              attrs: {
+                style: (td.attrs.style || '') + (border ? ";border:".concat(border, "px solid gray") + (spacing ? '' :
+                ';border-right:0;border-bottom:0') : '') + (padding ? ";padding:".concat(padding, "px") : '') },
+
+              children: td.children };
+
+            if (td.attrs.colspan) {
+              cell.attrs.style += ';grid-column-start:' + col + ';grid-column-end:' + (col + parseInt(td.attrs.colspan));
+              if (!td.attrs.rowspan) cell.attrs.style += ';grid-row-start:' + row + ';grid-row-end:' + (row + 1);
+              col += parseInt(td.attrs.colspan) - 1;
+            }
+            if (td.attrs.rowspan) {
+              cell.attrs.style += ';grid-row-start:' + row + ';grid-row-end:' + (row + parseInt(td.attrs.rowspan));
+              if (!td.attrs.colspan) cell.attrs.style += ';grid-column-start:' + col + ';grid-column-end:' + (col + 1);
+              for (var k = 1; k < td.attrs.rowspan; k++) {map[row + k + '.' + col] = 1;}
+            }
+            children.push(cell);
+            col++;
+          }
+        }
+        if (!colNum) {
+          colNum = col - 1;
+          attrs.style += ";grid-template-columns:repeat(".concat(colNum, ",auto)");
+        }
+        col = 1;
+        row++;
+      }
+      node.children = children;
+    } else {
+      attrs.style = "border-spacing:".concat(spacing, "px;").concat(attrs.style || '');
+      if (border || padding)
+      (function f(ns) {
+        for (var i = 0, n; n = ns[i]; i++) {
+          if (n.name == 'th' || n.name == 'td') {
+            if (border) n.attrs.style = "border:".concat(border, "px solid gray;").concat(n.attrs.style || '');
+            if (padding) n.attrs.style = "padding:".concat(padding, "px;").concat(n.attrs.style || '');
+          } else f(n.children || []);
+        }
+      })(childs);
+    }
+    if (this.options.autoscroll) {
+      var table = Object.assign({}, node);
+      node.name = 'div';
+      node.attrs = {
+        style: 'overflow:scroll' };
+
+      node.children = [table];
+    }
+  }
+  this.CssHandler.pop && this.CssHandler.pop(node);
+  // 自动压缩
+  if (node.name == 'div' && !Object.keys(attrs).length && childs.length == 1 && childs[0].name == 'div')
+  siblings[len - 1] = childs[0];
+};
+// 状态机
+MpHtmlParser.prototype.Text = function (c) {
+  if (c == '<') {
+    var next = this.data[this.i + 1],
+    isLetter = function isLetter(c) {return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';};
+    if (isLetter(next)) {
+      this.setText();
+      this.start = this.i + 1;
+      this.state = this.TagName;
+    } else if (next == '/') {
+      this.setText();
+      if (isLetter(this.data[++this.i + 1])) {
+        this.start = this.i + 1;
+        this.state = this.EndTag;
+      } else this.Comment();
+    } else if (next == '!' || next == '?') {
+      this.setText();
+      this.Comment();
+    }
+  }
+};
+MpHtmlParser.prototype.Comment = function () {
+  var key;
+  if (this.data.substring(this.i + 2, this.i + 4) == '--') key = '-->';else
+  if (this.data.substring(this.i + 2, this.i + 9) == '[CDATA[') key = ']]>';else
+  key = '>';
+  if ((this.i = this.data.indexOf(key, this.i + 2)) == -1) this.i = this.data.length;else
+  this.i += key.length - 1;
+  this.start = this.i + 1;
+  this.state = this.Text;
+};
+MpHtmlParser.prototype.TagName = function (c) {
+  if (blankChar[c]) {
+    this.tagName = this.section();
+    while (blankChar[this.data[this.i]]) {this.i++;}
+    if (this.isClose()) this.setNode();else
+    {
+      this.start = this.i;
+      this.state = this.AttrName;
+    }
+  } else if (this.isClose()) {
+    this.tagName = this.section();
+    this.setNode();
+  }
+};
+MpHtmlParser.prototype.AttrName = function (c) {
+  if (c == '=' || blankChar[c] || this.isClose()) {
+    this.attrName = this.section();
+    if (blankChar[c])
+    while (blankChar[this.data[++this.i]]) {;}
+    if (this.data[this.i] == '=') {
+      while (blankChar[this.data[++this.i]]) {;}
+      this.start = this.i--;
+      this.state = this.AttrValue;
+    } else this.setAttr();
+  }
+};
+MpHtmlParser.prototype.AttrValue = function (c) {
+  if (c == '"' || c == "'") {
+    this.start++;
+    if ((this.i = this.data.indexOf(c, this.i + 1)) == -1) return this.i = this.data.length;
+    this.attrVal = this.section();
+    this.i++;
+  } else {
+    for (; !blankChar[this.data[this.i]] && !this.isClose(); this.i++) {;}
+    this.attrVal = this.section();
+  }
+  this.setAttr();
+};
+MpHtmlParser.prototype.EndTag = function (c) {
+  if (blankChar[c] || c == '>' || c == '/') {
+    var name = this.section().toLowerCase();
+    for (var i = this.STACK.length; i--;) {
+      if (this.STACK[i].name == name) break;}
+    if (i != -1) {
+      var node;
+      while ((node = this.STACK.pop()).name != name) {this.popNode(node);}
+      this.popNode(node);
+    } else if (name == 'p' || name == 'br')
+    this.siblings().push({
+      name: name,
+      attrs: {} });
+
+    this.i = this.data.indexOf('>', this.i);
+    this.start = this.i + 1;
+    if (this.i == -1) this.i = this.data.length;else
+    this.state = this.Text;
+  }
+};
+module.exports = MpHtmlParser;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 139 */
+/*!*********************************************************************************************!*\
+  !*** D:/My Documents/HBuilderProjects/uniclound/uview-ui/components/u-parse/libs/config.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* 配置文件 */
+var cfg = {
+  // 出错占位图
+  errorImg: null,
+  // 过滤器函数
+  filter: null,
+  // 代码高亮函数
+  highlight: null,
+  // 文本处理函数
+  onText: null,
+  // 实体编码列表
+  entities: {
+    quot: '"',
+    apos: "'",
+    semi: ';',
+    nbsp: '\xA0',
+    ensp: "\u2002",
+    emsp: "\u2003",
+    ndash: '–',
+    mdash: '—',
+    middot: '·',
+    lsquo: '‘',
+    rsquo: '’',
+    ldquo: '“',
+    rdquo: '”',
+    bull: '•',
+    hellip: '…' },
+
+  blankChar: makeMap(' ,\xA0,\t,\r,\n,\f'),
+  boolAttrs: makeMap('allowfullscreen,autoplay,autostart,controls,ignore,loop,muted'),
+  // 块级标签，将被转为 div
+  blockTags: makeMap('address,article,aside,body,caption,center,cite,footer,header,html,nav,pre,section'),
+  // 将被移除的标签
+  ignoreTags: makeMap('area,base,canvas,frame,iframe,input,link,map,meta,param,script,source,style,svg,textarea,title,track,wbr'),
+  // 只能被 rich-text 显示的标签
+  richOnlyTags: makeMap('a,colgroup,fieldset,legend'),
+  // 自闭合的标签
+  selfClosingTags: makeMap('area,base,br,col,circle,ellipse,embed,frame,hr,img,input,line,link,meta,param,path,polygon,rect,source,track,use,wbr'),
+  // 信任的标签
+  trustTags: makeMap('a,abbr,ad,audio,b,blockquote,br,code,col,colgroup,dd,del,dl,dt,div,em,fieldset,h1,h2,h3,h4,h5,h6,hr,i,img,ins,label,legend,li,ol,p,q,source,span,strong,sub,sup,table,tbody,td,tfoot,th,thead,tr,title,ul,video'),
+  // 默认的标签样式
+  userAgentStyles: {
+    address: 'font-style:italic',
+    big: 'display:inline;font-size:1.2em',
+    blockquote: 'background-color:#f6f6f6;border-left:3px solid #dbdbdb;color:#6c6c6c;padding:5px 0 5px 10px',
+    caption: 'display:table-caption;text-align:center',
+    center: 'text-align:center',
+    cite: 'font-style:italic',
+    dd: 'margin-left:40px',
+    mark: 'background-color:yellow',
+    pre: 'font-family:monospace;white-space:pre;overflow:scroll',
+    s: 'text-decoration:line-through',
+    small: 'display:inline;font-size:0.8em',
+    u: 'text-decoration:underline' } };
+
+
+
+function makeMap(str) {
+  var map = Object.create(null),
+  list = str.split(',');
+  for (var i = list.length; i--;) {
+    map[list[i]] = true;}
+  return map;
+}
+
+
+if (wx.canIUse('editor')) {
+  cfg.blockTags.pre = void 0;
+  cfg.ignoreTags.rp = true;
+  Object.assign(cfg.richOnlyTags, makeMap('bdi,bdo,caption,rt,ruby'));
+  Object.assign(cfg.trustTags, makeMap('bdi,bdo,caption,pre,rt,ruby'));
+}
+
+
+
+
+
+
+
+module.exports = cfg;
+
+/***/ }),
+/* 140 */
+/*!*************************************************************************************************!*\
+  !*** D:/My Documents/HBuilderProjects/uniclound/uview-ui/components/u-parse/libs/CssHandler.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var cfg = __webpack_require__(/*! ./config.js */ 139),
+isLetter = function isLetter(c) {return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';};
+
+function CssHandler(tagStyle) {
+  var styles = Object.assign(Object.create(null), cfg.userAgentStyles);
+  for (var item in tagStyle) {
+    styles[item] = (styles[item] ? styles[item] + ';' : '') + tagStyle[item];}
+  this.styles = styles;
+}
+CssHandler.prototype.getStyle = function (data) {
+  this.styles = new parser(data, this.styles).parse();
+};
+CssHandler.prototype.match = function (name, attrs) {
+  var tmp,matched = (tmp = this.styles[name]) ? tmp + ';' : '';
+  if (attrs.class) {
+    var items = attrs.class.split(' ');
+    for (var i = 0, item; item = items[i]; i++) {
+      if (tmp = this.styles['.' + item])
+      matched += tmp + ';';}
+  }
+  if (tmp = this.styles['#' + attrs.id])
+  matched += tmp + ';';
+  return matched;
+};
+module.exports = CssHandler;
+
+function parser(data, init) {
+  this.data = data;
+  this.floor = 0;
+  this.i = 0;
+  this.list = [];
+  this.res = init;
+  this.state = this.Space;
+}
+parser.prototype.parse = function () {
+  for (var c; c = this.data[this.i]; this.i++) {
+    this.state(c);}
+  return this.res;
+};
+parser.prototype.section = function () {
+  return this.data.substring(this.start, this.i);
+};
+// 状态机
+parser.prototype.Space = function (c) {
+  if (c == '.' || c == '#' || isLetter(c)) {
+    this.start = this.i;
+    this.state = this.Name;
+  } else if (c == '/' && this.data[this.i + 1] == '*')
+  this.Comment();else
+  if (!cfg.blankChar[c] && c != ';')
+  this.state = this.Ignore;
+};
+parser.prototype.Comment = function () {
+  this.i = this.data.indexOf('*/', this.i) + 1;
+  if (!this.i) this.i = this.data.length;
+  this.state = this.Space;
+};
+parser.prototype.Ignore = function (c) {
+  if (c == '{') this.floor++;else
+  if (c == '}' && ! --this.floor) {
+    this.list = [];
+    this.state = this.Space;
+  }
+};
+parser.prototype.Name = function (c) {
+  if (cfg.blankChar[c]) {
+    this.list.push(this.section());
+    this.state = this.NameSpace;
+  } else if (c == '{') {
+    this.list.push(this.section());
+    this.Content();
+  } else if (c == ',') {
+    this.list.push(this.section());
+    this.Comma();
+  } else if (!isLetter(c) && (c < '0' || c > '9') && c != '-' && c != '_')
+  this.state = this.Ignore;
+};
+parser.prototype.NameSpace = function (c) {
+  if (c == '{') this.Content();else
+  if (c == ',') this.Comma();else
+  if (!cfg.blankChar[c]) this.state = this.Ignore;
+};
+parser.prototype.Comma = function () {
+  while (cfg.blankChar[this.data[++this.i]]) {;}
+  if (this.data[this.i] == '{') this.Content();else
+  {
+    this.start = this.i--;
+    this.state = this.Name;
+  }
+};
+parser.prototype.Content = function () {
+  this.start = ++this.i;
+  if ((this.i = this.data.indexOf('}', this.i)) == -1) this.i = this.data.length;
+  var content = this.section();
+  for (var i = 0, item; item = this.list[i++];) {
+    if (this.res[item]) this.res[item] += ';' + content;else
+    this.res[item] = content;}
+  this.list = [];
+  this.state = this.Space;
+};
+
+/***/ }),
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */
 /*!**********************************************************************************!*\
   !*** D:/My Documents/HBuilderProjects/uniclound/components/uni-calendar/util.js ***!
   \**********************************************************************************/
@@ -17772,7 +18596,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 138));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 177));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 
 Calendar = /*#__PURE__*/function () {
   function Calendar()
@@ -18126,7 +18950,7 @@ Calendar = /*#__PURE__*/function () {
 Calendar;exports.default = _default;
 
 /***/ }),
-/* 138 */
+/* 177 */
 /*!**************************************************************************************!*\
   !*** D:/My Documents/HBuilderProjects/uniclound/components/uni-calendar/calendar.js ***!
   \**************************************************************************************/

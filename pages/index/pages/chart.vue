@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<view class="solid-bottom nav" :style="{background:themeColor.color}">
+		<view class="solid-bottom nav" id="nav" :style="{background:themeColor.color}">
 				泰会记
 		</view>
 		<scroll-view id="tab" scroll-x class="nav text-center" :style="{background:themeColor.color}">
@@ -18,6 +18,22 @@
 		<view v-show="!isshow" class="qiun-columns">
 			<view class="qiun-charts">
 				<canvas canvas-id="canvasPie" id="canvasPie" class="charts" @touchstart="touchPie"></canvas>
+			</view>
+		</view>
+		<view class="detailinfo" :style="{height:useheight+'px'}">
+			<h3>各项排行榜</h3>
+			<view v-for="(item,index) in phlist" :key="index" class="info-box">
+				<view v-if="item.total>0">支出——</view>
+				<view v-if="item.total<0">收入——</view>
+				<view></view>
+				<view>
+					<span :class="'iconfont'+' '+item.data[0].url"></span>
+				</view>
+				<view>
+					{{item.type}}:
+				</view>
+				<view v-if="item.total>0" style="{font-weight: 500;font-size: 18px}">{{item.total}}</view>
+				<view v-if="item.total<0" style="{font-weight: 500;font-size: 18px}">{{-item.total}}</view>
 			</view>
 		</view>
 		<u-select v-model="show" mode="mutil-column" :list="list" @confirm="confirm"></u-select>
@@ -43,6 +59,8 @@
 	export default {
 		data() {
 			return {
+				useheight:"",
+				phlist:[],
 				show:false,
 				tab: ['折线图', '饼状图'],
 				TabCur: 0,
@@ -124,7 +142,7 @@
 			_self = this;
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
-			this.getMonthDay(ny[0], ny[1]-1)
+			this.getMonthDay()
 			let yms = this.date.split('-');
 			this.getServerData(yms[0],yms[1]);
 		},
@@ -196,15 +214,23 @@
 					this.showLineA("canvasLineA", chartData);
 					this.showPie("canvasPie",this.chartData1)
 					console.log(this.datalist1)
+					this.phlist = this.datalist1.sort((a,b)=>{return b.total - a.total})
+					this.getheight()
 				})
 			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
+				if(this.TabCur==0){
+					this.isshow = true
+				}else{
+					this.isshow = false
+				}
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
-				this.isshow = !this.isshow
+				
 			},
-			getMonthDay(year, month) {
-				let days = new Date(year, month + 1, 0).getDate()
+			getMonthDay() {
+				let days = new Date().getDate()
+				console.log(days)
 				for (let i = 0; i < days; i++) {
 					chartData.categories.push(i + 1)
 				}
@@ -308,12 +334,40 @@
 			confirm(e){
 				this.dateselect = e[0].value+'-'+e[1].value
 				this.getServerData(e[0].value,e[1].value)
+			},
+			//获取高度
+			getheight(){
+				const res = uni.getSystemInfoSync();
+				let wheight = res.windowHeight
+				var navheight
+				var tabheight
+				var chartheight
+				console.log(wheight)
+				var view1 = uni.createSelectorQuery().select("#nav")
+				view1.boundingClientRect((data)=>{
+					navheight = data.height
+					console.log(navheight)
+				}).exec()
+				var view2 = uni.createSelectorQuery().select("#tab")
+				view2.boundingClientRect((data)=>{
+					tabheight = data.height
+					console.log(tabheight)
+				}).exec()
+				var view3 = uni.createSelectorQuery().select("#canvasLineA")
+				view3.boundingClientRect((data)=>{
+					chartheight = data.height
+					console.log(chartheight)
+				}).exec()
+				setTimeout(()=>{
+					this.useheight = wheight - navheight - tabheight - chartheight - 60
+					console.log(this.useheight)
+				},500)		
 			}
 		}
 	}
 </script>
 
-<style>
+<style scoped lang="scss">
 	.nav{
 		padding-top:var(--status-bar-height);
 		width: 100%;
@@ -332,5 +386,20 @@
 		width: 750upx;
 		height: 500upx;
 		background-color: #FFFFFF;
+	}
+	.detailinfo{
+		width: 100%;
+		// height: 450rpx;
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+		.info-box{
+			padding-left: 80rpx;
+			background-color: #FFFFFF;
+			margin-bottom: 10rpx;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+		}
 	}
 </style>

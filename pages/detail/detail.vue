@@ -39,11 +39,14 @@
 			};
 		},
 		onLoad() {
-			 const value = uni.getStorageSync('infodata');
-			 this.infodata = JSON.parse(value)
-			 console.log(this.infodata)
+			 this.getdata()
 		},
 		methods:{
+			getdata(){
+				const value = uni.getStorageSync('infodata');
+				this.infodata = JSON.parse(value)
+				console.log(this.infodata)
+			},
 			back(){
 				uni.navigateBack()
 				const value = uni.getStorageSync('detailinfo');
@@ -71,7 +74,7 @@
 			edit(){
 				uni.setStorageSync('detailinfo', JSON.stringify(this.infodata));
 				uni.navigateTo({
-					url:"../booking/booking"
+					url:"../bookingedit/booking"
 				})
 			}
 		}

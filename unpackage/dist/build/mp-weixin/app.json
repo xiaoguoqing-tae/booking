@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/pages/index",
+    "pages/booking/booking",
+    "pages/bookingedit/booking",
+    "pages/index/pages/mine",
+    "pages/index/pages/chart",
+    "pages/index/pages/sq",
+    "pages/detail/detail"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/pages/index",
+        "text": "明细"
+      },
+      {
+        "pagePath": "pages/index/pages/chart",
+        "text": "图表"
+      },
+      {
+        "pagePath": "pages/index/pages/sq",
+        "text": "社区"
+      },
+      {
+        "pagePath": "pages/index/pages/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}
